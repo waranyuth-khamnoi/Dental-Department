@@ -170,12 +170,6 @@ body {
     --white: #ffffff;
 }
 
-body {
-    font-family: 'Sarabun', sans-serif;
-    background-color: var(--light-bg);
-    margin: 0;
-    color: #333;
-}
 
 /* Header */
 .header {

@@ -163,12 +163,7 @@ body {
     height: 28px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Sarabun', sans-serif; /* แนะนำให้ใช้ Google Font Sarabun */
-}
+
 
 body {
     background-color: #f8f9fa;

@@ -169,12 +169,6 @@ body {
     --border-color: #ddd;
 }
 
-body {
-    font-family: 'Sarabun', sans-serif;
-    margin: 0;
-    background-color: #fff;
-    color: #333;
-}
 
 /* Navbar */
 .navbar {
