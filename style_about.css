@@ -1,0 +1,65 @@
+.staff-section {
+    padding: 60px 0;
+}
+
+.category-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    color: var(--text-dark); /* ใช้ตัวแปรจาก style_index.css ได้ */
+    border-left: 5px solid var(--primary-yellow);
+    padding-left: 15px;
+}
+
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ปรับตามขนาดจออัตโนมัติ */
+    gap: 50px;
+    margin-bottom: 80px;
+}
+
+.staff-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.staff-img {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.staff-card:hover .staff-img {
+    transform: translateY(-10px); /* ขยับขึ้นเล็กน้อยเมื่อ Hover */
+}
+
+.staff-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+.staff-info p {
+    font-size: 16px;
+    color: #555;
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 250px; /* จำกัดความกว้างตัวอักษรให้อ่านง่าย */
+}
+
+/* ปรับแต่งสำหรับมือถือ */
+@media (max-width: 768px) {
+    .staff-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .category-title {
+        font-size: 18px;
+    }
+}

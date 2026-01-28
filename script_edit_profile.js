@@ -1,0 +1,36 @@
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // ตรวจสอบค่าเบื้องต้น (ตัวอย่าง)
+    const firstName = document.querySelector('input[name="firstname"]').value;
+    
+    if(!firstName) {
+        alert('กรุณากรอกชื่อผู้รับบริการ');
+        return;
+    }
+
+    alert('แก้ไขข้อมูลเรียบร้อยแล้ว! ระบบจะส่งข้อมูลไปยังโรงพยาบาล');
+    console.log('Form Submitted');
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ฟังก์ชันสำหรับจัดการการคลิกที่เมนู
+    const menuCards = document.querySelectorAll('.menu-card');
+    
+    menuCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            console.log('กำลังไปที่หน้า: ' + e.target.innerText);
+        });
+    });
+
+    // ฟังก์ชัน Logout เบื้องต้น
+    const logoutBtn = document.querySelector('button[aria-label="Logout"]');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                window.location.href = 'signin_choice.html';
+            }
+        });
+    }
+});

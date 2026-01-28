@@ -1,0 +1,67 @@
+/* การจัดหน้า Services ตาม Mockup */
+.services-section {
+    padding: 60px 0;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 คอลัมน์ */
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background-color: #c5ad7d; /* สีน้ำตาลทองตาม Mockup */
+    border-radius: 35px; /* มุมโค้งมนมากตามรูป */
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    background-color: #b39a6a; /* สีเข้มขึ้นเล็กน้อยเมื่อ Hover */
+}
+
+.service-icon-bg {
+    background-color: #ffffff; /* พื้นหลังวงกลมสีขาวสำหรับ Icon */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.service-icon-bg img {
+    width: 60%;
+    height: auto;
+}
+
+.service-card h3 {
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Responsive สำหรับมือถือ */
+@media (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr); /* แสดง 2 คอลัมน์ในแท็บเล็ต */
+    }
+}
+
+@media (max-width: 600px) {
+    .services-grid {
+        grid-template-columns: 1fr; /* แสดง 1 คอลัมน์ในมือถือ */
+    }
+}

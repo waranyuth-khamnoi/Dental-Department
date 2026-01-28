@@ -1,0 +1,318 @@
+:root {
+    --primary-beige: #e5d5b0;
+    --text-dark: #333;
+    --font-main: 'Prompt', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-main);
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Style */
+.header {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-text h1 { font-size: 18px; margin: 0; }
+.logo-text h2 { font-size: 14px; margin: 0; color: #666; font-weight: 400; }
+
+.nav-menu {
+    display: flex;
+    margin: auto;
+    gap: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 16px;
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+}
+
+:root {
+    --text-color: #333;
+    --border-color: #000;
+    --bg-white: #ffffff;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.navbar {
+    background-color: var(--bg-white);
+    padding: 15px 30px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Left Section */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-box img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.hospital-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.department-name {
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* Center Section (Buttons) */
+.nav-center {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 50px; /* ทรงวงรีตามแบบ */
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Right Section (Icons) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+}
+
+.icon-btn svg {
+    width: 28px;
+    height: 28px;
+}
+
+:root {
+    --primary-yellow: #FFD35B;
+    --dark-grey: #333;
+    --light-bg: #f5f5f5;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--light-bg);
+    margin: 0;
+    color: #333;
+}
+
+/* Header */
+.header {
+    background: var(--white);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo-section { display: flex; align-items: center; }
+.logo-icon { font-size: 40px; margin-right: 10px; }
+.logo-text h1 { font-size: 18px; margin: 0; }
+.logo-text p { font-size: 14px; margin: 0; color: #666; }
+
+.nav-menu { display: flex; gap: 10px; }
+.nav-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn.active {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+}
+
+/* Main Content */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.tab-header {
+    background-color: #F39C12;
+    color: white;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 5px 5px 0 0;
+    font-weight: bold;
+}
+
+.form-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 0 15px 15px 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.category { margin-bottom: 25px; }
+.category h3 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.options {
+    display: flex;
+    gap: 25px; /* ระยะห่างระหว่างตัวเลือก */
+    flex-wrap: wrap;
+    margin-left: 15px; /* ขยับตัวเลือกเข้าไปข้างในเล็กน้อย */
+}
+
+.options label {
+    font-size: 0.85rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.options input { margin-right: 8px; }
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-cancel, .btn-confirm {
+    padding: 10px 30px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-cancel { background-color: #333; }
+.btn-confirm { background-color: #444; }
+.btn-confirm:hover { background-color: #222; }
+
+/* เพิ่มเติมจากอันเดิม */
+.treatment-group {
+    padding: 10px 40px; /* ลด padding เพื่อให้กระชับขึ้น */
+    margin-bottom: 5px;
+}
+
+.treatment-group h3 {
+    font-size: 0.9rem;
+    color: #444;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* ปรับแต่ง Radio Button ให้ดูโมเดิร์นขึ้น */
+input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    margin-right: 8px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input[type="radio"]:checked {
+    border: 5px solid #333; /* สร้างวงกลมซ้อนข้างใน */
+}
+
+.btn-cancel, .btn-confirm {
+    min-width: 80px;
+    height: 38px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: opacity 0.2s;
+}
+
+.btn-cancel:hover, .btn-confirm:hover {
+    opacity: 0.8;
+}

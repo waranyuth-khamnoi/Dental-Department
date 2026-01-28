@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Login - Dental Department</title>
+    <link rel="icon" type="image/png" href="../images/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_index.css">
+    <link rel="stylesheet" href="style_citizen_login.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <img src="../images/Logo.png" alt="Logo" width="70" height="70">
+                </div>
+                <div class="logo-text">
+                    <h1>โรงพยาบาลดอกคำใต้</h1>
+                    <h2>แผนกทันตกรรม</h2>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="dashboard.html" class="btn btn-dark">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="login-page">
+        <div class="login-container">
+            <h1 class="login-main-title">เข้าสู่ระบบของประชาชน</h1>
+            
+            <div class="login-box">
+                <form id="publicLoginForm">
+                    <div class="form-group-login">
+                        <label for="username">เลขบัตรประชาชน (13 หลัก) / เบอร์โทรศัพท์</label>
+                        <input type="text" id="username" class="input-field" placeholder="">
+                    </div>
+
+                    <div class="form-group-login">
+                        <label for="password">รหัสผ่าน (OTP ทาง SMS)</label>
+                        <input type="password" id="password" class="input-field" placeholder="">
+                    </div>
+
+                    <button type="submit" id="loginBtn" class="btn-signin-black">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="script_citizen_login.js"></script>
+    
+</body>
+</html>

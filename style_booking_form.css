@@ -1,0 +1,169 @@
+:root {
+    --primary-beige: #e5d5b0;
+    --text-dark: #333;
+    --font-main: 'Prompt', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-main);
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Style */
+.header {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-text h1 { font-size: 18px; margin: 0; }
+.logo-text h2 { font-size: 14px; margin: 0; color: #666; font-weight: 400; }
+
+.nav-menu {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 16px;
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+}
+
+:root {
+    --primary-color: #f1b335; /* สีส้มเหลืองตามปุ่ม */
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+    --text-color: #643a3a;
+}
+/* Main Container */
+
+.card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid var(--border-color);
+    border-radius: 40px; /* ขอบมนตามภาพ */
+    padding: 40px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Form Styles */
+.booking-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    border: 1px solid #eee;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.full-width { grid-column: span 2; }
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+input[type="text"], input[type="tel"], input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.birth-inputs { display: flex; gap: 10px; }
+
+.radio-group, .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.inline-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.small-input { width: 150px !important; }
+
+.divider {
+    grid-column: span 2;
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 10px 0;
+}
+
+/* Submit Button */
+.form-footer {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    background-color: var(--primary-color);
+    border: 1px solid #d49a20;
+    padding: 12px 60px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.submit-btn:hover { background-color: #e0a32e; }
