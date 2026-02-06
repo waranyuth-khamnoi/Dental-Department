@@ -75,13 +75,15 @@
 .table-responsive {
     border: 1px solid #eee;
     border-radius: 15px;
-    overflow: hidden;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* เพื่อให้การเลื่อนบน iOS ลื่นไหล */
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .data-table {
     width: 100%;
-    border-collapse: collapse;
+    min-width: 800px; /* กำหนดความกว้างขั้นต่ำเพื่อให้ตารางไม่เบียดกันจนอ่านไม่ออก */
+    border-collapse: collapse; 
     background: white;
 }
 
@@ -117,12 +119,39 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* ปรับ Header */
+    .header-container {
+        flex-direction: column; /* ให้โลโก้กับไอคอนอยู่คนละบรรทัด */
+        gap: 15px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .logo-area {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .logo-text h1 {
+        font-size: 18px; /* ลดขนาดฟอนต์หัวข้อลง */
+    }
+
+    .logo-text h2 {
+        font-size: 14px;
+    }
+
+    /* ปรับส่วนค้นหาและวันที่ */
     .filter-bar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch; /* ให้ช่องค้นหายาวเต็มหน้าจอ */
         gap: 20px;
     }
+
+    .date-selector {
+        justify-content: center; /* จัดวันที่ให้อยู่กลางหน้าจอ */
+    }
+
     .search-wrapper {
-        width: 100%;
+        width: 100% !important;
     }
 }

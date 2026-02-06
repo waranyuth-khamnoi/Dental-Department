@@ -119,16 +119,83 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .datetime-row {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
+    /* ลด Padding ของการ์ดหลักเพื่อให้มีที่ว่างในมือถือมากขึ้น */
     .form-card-main {
-        padding: 30px;
+        padding: 30px 20px; /* ลดจาก 80px เหลือ 20px */
+        border-radius: 0 0 15px 15px;
     }
-    
+
+    /* ปรับให้ วันที่ และ เวลา วางซ้อนกัน */
+    .datetime-row {
+        flex-direction: column; 
+        gap: 25px; /* ลดช่องว่างลง */
+        margin-bottom: 30px;
+    }
+
+    /* ปรับส่วนกรอก วัน/เดือน/ปี ให้เต็มความกว้าง */
+    .date-inputs {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .dob-input {
+        flex: 1; /* ให้ช่อง input ยืดหยุ่นตามความกว้างจอ */
+        min-width: 60px;
+    }
+
+    .dob-input.yyyy {
+        flex: 2; /* ช่องปีให้กว้างกว่าช่องอื่นหน่อย */
+    }
+
+    /* ปรับช่อง Input เวลาให้ยาวขึ้นในมือถือ */
+    .time-input {
+        width: 100%;
+        max-width: 150px;
+    }
+
+    /* ปุ่มยืนยันให้ยาวเต็มจอ กดง่าย */
+    .btn-confirm {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* เมนูแคปซูลรูดปัดซ้าย-ขวาได้ */
     .nav-admin-menu {
-        display: none;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+    }
+
+    .nav-admin-link {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    /* จัดโลโก้ให้อยู่กึ่งกลาง */
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .logo-area {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-badge-orange {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .input-group-name label {
+        font-size: 16px;
     }
 }

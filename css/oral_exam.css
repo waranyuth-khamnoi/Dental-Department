@@ -1,7 +1,12 @@
-* จัดการเมนู Navigation แบบแคปซูลตามรูป */
+/* จัดการเมนู Navigation แบบแคปซูลตามรูป */
+/* ทำให้เมนูแคปซูลเลื่อนได้บนมือถือ */
 .nav-menu-admin {
     display: flex;
     gap: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .nav-admin-link {
@@ -33,10 +38,12 @@
     margin-right: auto;
 }
 
+/* ทำให้ Tab เมนูเลื่อนได้ */
 .tab-menu {
     display: flex;
-    gap: 5px;
-    margin-left: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-left: 0;
 }
 
 .tab-btn {
@@ -221,4 +228,63 @@
 /* กรณีต้องการแยกสีสำหรับปุ่มที่ Active (หน้าปัจจุบัน) */
 .tab-btn.active {
     color: #000000 !important; /* เปลี่ยนเป็นสีดำหรือสีที่ต้องการเมื่อเลือกหน้านี้ */
+}
+
+@media (max-width: 768px) {
+    /* ปรับลด Padding ของ Card ลง */
+    .profile-card {
+        padding: 20px;
+    }
+
+    /* ปรับตาราง Checkbox ให้แสดงผล 2 คอลัมน์บนมือถือ */
+    .checkbox-grid {
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px;
+    }
+
+    /* ปรับ Radio Group ให้วางซ้อนกันในแนวตั้งเพื่อให้กดง่ายขึ้น */
+    .radio-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* ช่อง Input สั้นๆ ให้ขยายยาวขึ้นหน่อยบนมือถือ */
+    .short-input {
+        max-width: 100%;
+    }
+
+    /* ปรับปุ่มล่างสุดให้เต็มหน้าจอเพื่อให้กดง่ายด้วยนิ้วโป้ง */
+    .form-footer {
+        flex-direction: column-reverse; /* เอายืนยันไว้บน ยกเลิกไว้ล่าง */
+        gap: 10px;
+    }
+
+    .btn-dark-action {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* ทำให้เมนูแคปซูลเลื่อนได้ ไม่เบียดกัน */
+    .nav-menu-admin {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-admin-link {
+        padding: 6px 15px;
+        font-size: 14px;
+    }
+
+    /* ปรับ Header หลักให้โลโก้อยู่กลาง */
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
 }

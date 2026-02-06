@@ -27,7 +27,8 @@
 
 /* Diagnosis Content */
 .diagnosis-container {
-    margin: 50px auto;
+    margin: 20px auto; /* ลด margin บน-ล่าง */
+    padding: 0 15px;   /* เพิ่ม padding ซ้าย-ขวาป้องกันขอบจอ */
     max-width: 950px;
 }
 
@@ -119,8 +120,54 @@
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+    .diagnosis-card {
+        padding: 20px; /* ลดจาก 50px เหลือ 20px */
+        border-radius: 0 0 15px 15px; /* ปรับมุมให้รับกับ Header */
+    }
+
     .options-grid {
-        grid-template-columns: repeat(2, 1fr);
+        /* ปรับจาก 5 คอลัมน์ เป็น 2 หรือ 1 ตามความเหมาะสม */
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+        gap: 12px;
+    }
+
+    .diagnosis-header {
+        width: 100%; /* ให้หัวข้อกว้างเต็มหน้าจอ */
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .diag-actions {
+        flex-direction: column-reverse; /* ปุ่มกดยืนยันอยู่บน ยกเลิกอยู่ล่าง */
+        gap: 10px;
+    }
+
+    .btn-dark {
+        width: 100%; /* ปุ่มขยายเต็มความกว้าง */
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* ทำให้เมนูแคปซูลเลื่อนได้ ไม่เบียดกัน */
+    .nav-menu-admin {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-admin-link {
+        padding: 6px 15px;
+        font-size: 14px;
+    }
+
+    /* ปรับ Header หลักให้โลโก้อยู่กลาง */
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
     }
 }
