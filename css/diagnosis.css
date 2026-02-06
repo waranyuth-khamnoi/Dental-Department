@@ -1,0 +1,126 @@
+* จัดการเมนู Navigation แบบแคปซูลตามรูป */
+.nav-menu-admin {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-admin-link {
+    text-decoration: none;
+    color: #000;
+    padding: 8px 20px;
+    border: 1px solid #000;
+    border-radius: 25px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.nav-admin-link.active {
+    background-color: #f8cf4f; /* สีเหลืองตามตัวแปร primary-yellow */
+    border-color: #f8cf4f;
+}
+
+.header-icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Diagnosis Content */
+.diagnosis-container {
+    margin: 50px auto;
+    max-width: 950px;
+}
+
+.diagnosis-header {
+    background-color: #FF9F00;
+    color: black;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 10px 10px 0 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.diagnosis-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 15px 15px 15px;
+    padding: 40px 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.diag-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* แบ่งเป็น 5 คอลัมน์ตามรูป */
+    gap: 15px;
+    align-items: center;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.option-item-with-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    grid-column: span 1;
+}
+
+.option-item-with-input label {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.diag-input-line {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 60px;
+    outline: none;
+    text-align: center;
+}
+
+/* Actions */
+.diag-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn-dark {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 30px;
+    border-radius: 8px;
+    font-family: 'Prompt', sans-serif;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-dark:hover {
+    background-color: #000;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

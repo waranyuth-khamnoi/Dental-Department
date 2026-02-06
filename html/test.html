@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจและวินิจฉัย - Dental Department</title>
+    <link rel="icon" type="image/png" href="../images/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/test.css">
+    </head>
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <img src="../images/Logo.png" alt="Logo" width="50" height="50">
+                </div>
+                <div class="logo-text">
+                    <h1>โรงพยาบาลดอกคำใต้</h1>
+                    <h2>แผนกทันตกรรม</h2>
+                </div>
+            </div>
+            <nav class="nav-menu-admin">
+                <a href="#" class="nav-btn">ทะเบียนทันตกรรม</a>
+                <a href="#" class="nav-btn">รายงานทันตกรรม</a>
+                <a href="#" class="nav-btn active-yellow">รายการหัตถการ</a>
+                <a href="#" class="nav-btn">จัดการนัดหมาย</a>
+            </nav>
+            <div class="admin-icons">
+                <span class="icon-user">👤</span>
+                <span class="icon-logout">↪️</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="diagnosis-wrapper">
+            <div class="section-badge">ตรวจและวินิจฉัย</div>
+            
+            <div class="diagnosis-card">
+                <form>
+                    <div class="treatment-group">
+                        <h3>ป้องกันโรค</h3>
+                        <div class="radio-options">
+                            <label class="radio-label"><input type="radio" name="prevent"> ขูดหินปูน</label>
+                            <label class="radio-label"><input type="radio" name="prevent"> ขัดฟัน</label>
+                            <label class="radio-label"><input type="radio" name="prevent"> เคลือบฟลูออไรด์</label>
+                        </div>
+                    </div>
+
+                    <div class="treatment-group">
+                        <h3>ทันตกรรมบูรณะ</h3>
+                        <div class="radio-options">
+                            <label class="radio-label"><input type="radio" name="restorative"> อุดฟัน</label>
+                        </div>
+                    </div>
+
+                    <div class="treatment-group">
+                        <h3>ศัลยกรรมช่องปาก</h3>
+                        <div class="radio-options">
+                            <label class="radio-label"><input type="radio" name="surgery"> ถอนฟัน</label>
+                            <label class="radio-label"><input type="radio" name="surgery"> ผ่าฟันคุด</label>
+                        </div>
+                    </div>
+
+                    <div class="treatment-group">
+                        <h3>รักษารากฟัน</h3>
+                        <div class="radio-options">
+                            <label class="radio-label"><input type="radio" name="root-canal"> รักษารากฟัน</label>
+                        </div>
+                    </div>
+
+                    <div class="treatment-group">
+                        <h3>ทันตกรรมประดิษฐ์</h3>
+                        <div class="radio-options">
+                            <label class="radio-label"><input type="radio" name="prosthetics"> ทำฟันปลอมถอดได้</label>
+                        </div>
+                    </div>
+
+                    <div class="treatment-group">
+                        <h3>โรคเหงือกและปริทันต์</h3>
+                        <div class="radio-options">
+                            <label class="radio-label"><input type="radio" name="gum"> ขูดหินปูนและเกลารากฟัน</label>
+                            <label class="radio-label"><input type="radio" name="gum"> ผ่าตัดปริทันต์</label>
+                        </div>
+                    </div>
+
+                    <div class="form-footer-actions">
+                        <button type="button" class="btn-cancel">ยกเลิก</button>
+                        <button type="submit" class="btn-confirm">ยืนยัน</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

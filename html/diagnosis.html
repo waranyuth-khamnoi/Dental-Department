@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจและวินิจฉัย - โรงพยาบาลดอกคำใต้</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/diagnosis.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <img src="../images/Logo.png" alt="Logo" width="60" height="60">
+                </div>
+                <div class="logo-text">
+                    <h1>โรงพยาบาลดอกคำใต้</h1>
+                    <h2>แผนกทันตกรรม</h2>
+                </div>
+            </div>
+            <nav class="nav-menu-admin">
+                <a href="../html/registration.html" class="nav-admin-link">ทะเบียนทันตกรรม</a>
+                <a href="../html/patient_info.html" class="nav-admin-link">รายงานทันตกรรม</a>
+                <a href="../html/diagnosis.html" class="nav-admin-link active">รายการหัตถการ</a>
+                <a href="../html/appointment.html" class="nav-admin-link">จัดการนัดหมาย</a>
+            </nav>
+            <div class="header-icons">
+                <span class="icon-user">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+                <span class="icon-logout">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="diagnosis-container">
+            <div class="diagnosis-header">
+                ตรวจและวินิจฉัย
+            </div>
+            
+            <div class="diagnosis-card">
+                <form>
+                    <div class="diag-section">
+                        <label class="section-title">ป้องกันโรค</label>
+                        <div class="options-grid">
+                            <label class="option-item"><input type="radio" name="p1"> ขูดหินปูน</label>
+                            <label class="option-item"><input type="radio" name="p1"> ขัดฟัน</label>
+                            <label class="option-item"><input type="radio" name="p1"> เคลือบฟลูออไรด์</label>
+                        </div>
+                    </div>
+
+                    <div class="diag-section">
+                        <label class="section-title">ทันตกรรมบูรณะ</label>
+                        <div class="options-grid">
+                            <label class="option-item"><input type="radio" name="p2"> อุดฟัน</label>
+                        </div>
+                    </div>
+
+                    <div class="diag-section">
+                        <label class="section-title">ศัลยกรรมช่องปาก</label>
+                        <div class="options-grid">
+                            <label class="option-item"><input type="radio" name="p3"> ถอนฟัน</label>
+                            <label class="option-item"><input type="radio" name="p3"> ผ่าฟันคุด</label>
+                        </div>
+                    </div>
+
+                    <div class="diag-section">
+                        <label class="section-title">รักษารากฟัน</label>
+                        <div class="options-grid">
+                            <label class="option-item"><input type="radio" name="p4"> รักษารากฟัน</label>
+                        </div>
+                    </div>
+
+                    <div class="diag-section">
+                        <label class="section-title">ทันตกรรมรากฟัน</label>
+                        <div class="options-grid">
+                            <label class="option-item"><input type="radio" name="p5"> ทำฟันปลอมถอดได้</label>
+                        </div>
+                    </div>
+
+                    <div class="diag-section">
+                        <label class="section-title">โรคเหงือกและปริทันต์</label>
+                        <div class="options-grid">
+                            <label class="option-item"><input type="radio" name="p6"> ขูดหินปูนและเกลารากฟัน</label>
+                            <label class="option-item"><input type="radio" name="p6"> ผ่าตัดปริทันต์</label>
+                        </div>
+                    </div>
+
+                    <div class="diag-actions">
+                        <button type="button" class="btn-dark">ยกเลิก</button>
+                        <button type="submit" class="btn-dark">ยืนยัน</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
