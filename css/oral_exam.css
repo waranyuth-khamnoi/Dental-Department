@@ -208,3 +208,17 @@
     border-color: #ccc;
     font-weight: 600;
 }
+
+/* กำหนดสีให้ปุ่ม Tab ทุกสถานะ */
+.tab-btn, 
+.tab-btn:visited, 
+.tab-btn:hover, 
+.tab-btn:active {
+    text-decoration: none; /* เอาเส้นใต้ตัวหนังสือออก */
+    color: inherit;        /* หรือระบุสีที่ต้องการ เช่น #000000 หรือ #FFFFFF */
+}
+
+/* กรณีต้องการแยกสีสำหรับปุ่มที่ Active (หน้าปัจจุบัน) */
+.tab-btn.active {
+    color: #000000 !important; /* เปลี่ยนเป็นสีดำหรือสีที่ต้องการเมื่อเลือกหน้านี้ */
+}

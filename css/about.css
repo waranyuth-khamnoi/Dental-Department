@@ -6,7 +6,7 @@
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 40px;
-    color: var(--text-dark); /* ใช้ตัวแปรจาก style_index.css ได้ */
+    color: var(--text-dark); /* ใช้ตัวแปรจาก main.css ได้ */
     border-left: 5px solid var(--primary-yellow);
     padding-left: 15px;
 }

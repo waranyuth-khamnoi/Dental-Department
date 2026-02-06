@@ -5,8 +5,8 @@
 
 .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1.2fr; /* ปรับสัดส่วนให้ฝั่งซ้ายกว้างขึ้นเล็กน้อย */
-    gap: 50px;
+    grid-template-columns: 1.5fr 1fr; /* ปรับสัดส่วนให้ฝั่งซ้ายกว้างขึ้นเล็กน้อย */
+    gap: 40px;
     align-items: start; /* ให้เริ่มจากด้านบนสุด */
 }
 
@@ -22,6 +22,7 @@
     margin-bottom: 50px; /* ระยะห่างก่อนเริ่มรายการติดต่อ */
     position: relative;
     display: inline-block; /* ให้กรอบหัวข้อพอดีกับตัวอักษร */
+    white-space: nowrap;
 }
 
 /* แก้ไขแถบเหลืองที่ "ตก" ไปข้างล่าง */
@@ -70,6 +71,8 @@
     color: #333;
     line-height: 1.6;
     margin: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 .info-item strong {

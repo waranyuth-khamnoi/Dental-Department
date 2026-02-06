@@ -105,6 +105,16 @@
     border-bottom: none;
 }
 
+/* เพิ่มใน registration.css */
+.data-table tbody tr {
+    transition: background-color 0.2s;
+    cursor: pointer; /* ทำให้เมาส์เป็นรูปมือทั้งแถว */
+}
+
+.data-table tbody tr:hover {
+    background-color: #fff9e6; /* เปลี่ยนเป็นสีเหลืองอ่อนๆ เมื่อชี้ */
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .filter-bar {

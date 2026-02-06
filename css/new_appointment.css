@@ -15,8 +15,8 @@
 }
 
 .nav-admin-link.active {
-    background-color: var(--primary-yellow); /* ใช้จาก main.css */
-    border-color: var(--primary-yellow);
+    background-color: #f8cf4f; /* สีเหลืองตามตัวแปร primary-yellow */
+    border-color: #f8cf4f;
 }
 
 .header-icons {
@@ -71,13 +71,28 @@
     margin-bottom: 8px;
 }
 
-/* ปรับขนาด Input ตามไฟล์ main.css เดิม */
+.dob-input {
+    width: 60px; /* ปรับให้สั้นลงตาม Mockup */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .dob-input.yyyy {
-    width: 100px;
+    width: 90px;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 10px;
 }
 
 .time-input {
-    width: 150px;
+    width: 120px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 /* ปุ่มยืนยัน */
