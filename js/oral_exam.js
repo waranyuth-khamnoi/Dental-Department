@@ -1,13 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const examForm = document.querySelector('form');
     const logoutBtn = document.querySelector('.icon-logout');
-    
-    // 1. ระบบจัดการการเลือก Checkbox (สภาพฟัน)
-    // เพิ่ม Logic พิเศษ: ถ้าเลือก "ปกติ" ให้ยกเลิกการเลือกข้ออื่นๆ
-    const toothStatusCheckboxes = document.querySelectorAll('.checkbox-grid input[type="checkbox"]');
-    const normalStatusCheckbox = Array.from(toothStatusCheckboxes).find(cb => 
-        cb.parentElement.innerText.includes('ปกติ')
-    );
 
     if (normalStatusCheckbox) {
         normalStatusCheckbox.addEventListener('change', (e) => {

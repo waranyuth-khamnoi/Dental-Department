@@ -1,0 +1,141 @@
+/* จัดการระยะห่างเนื้อหาหลัก */
+.content-wrapper {
+    padding-top: 60px;
+    padding-bottom: 80px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+.form-container {
+    position: relative;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* หัวข้อสีส้มเหลื่อมขอบการ์ด */
+.form-header {
+    background-color: #f39c12; /* สีส้มตาม Mockup */
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    display: inline-block;
+    position: absolute;
+    top: -22px;
+    left: 18px;
+    z-index: 5;
+}
+
+/* การ์ดสีขาว */
+.form-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 60px 45px 40px 45px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.form-row {
+    display: flex;
+    gap: 25px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+label {
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"], 
+input[type="email"],
+select {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+}
+
+.input-small { width: 120px; }
+
+/* Radio Buttons */
+.radio-group {
+    display: flex;
+    gap: 25px;
+    padding: 5px 0;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* วันเกิด */
+.date-group {
+    display: flex;
+    gap: 10px;
+}
+.input-date { width: 75px; text-align: center; }
+.input-year { width: 95px; text-align: center; }
+
+/* ปุ่มดำเนินการด้านล่าง */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-cancel, .btn-confirm {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancel {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-confirm {
+    background-color: #2c3e50; /* อ้างอิง --btn-blue */
+    color: #fff;
+}
+
+/* Header Actions */
+.user-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+}

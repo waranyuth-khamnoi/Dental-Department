@@ -1,0 +1,112 @@
+.content-wrapper {
+    padding-top: 50px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.form-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* แถบหัวข้อสีส้ม */
+.form-header {
+    background-color: #f39c12;
+    color: #000;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    display: inline-block;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    z-index: 2;
+}
+
+/* การ์ดฟอร์มสีขาว */
+.form-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 60px 50px 40px 50px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.form-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+input[type="text"], input[type="email"] {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 14px;
+    outline: none;
+}
+
+/* ขนาด Input พิเศษ */
+.input-small { width: 120px; }
+.input-full { width: 100%; }
+
+/* Radio Buttons */
+.radio-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* วันเกิด */
+.date-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-date { width: 70px; text-align: center; }
+.input-year { width: 90px; text-align: center; }
+
+/* Header Actions */
+.user-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+}
