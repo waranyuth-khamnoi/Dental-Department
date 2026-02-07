@@ -117,6 +117,24 @@
     background-color: #000;
 }
 
+.logo-area {
+    display: flex;
+    align-items: center; /* จัดให้รูปและข้อความอยู่กึ่งกลางแนวตั้งร่วมกัน */
+    gap: 15px;           /* ระยะห่างระหว่างรูปโลโก้และกลุ่มข้อความ */
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column; /* ให้ชื่อโรงพยาบาลและชื่อแผนกเรียงบน-ล่าง */
+    align-items: flex-start; /* บังคับให้ข้อความทุกบรรทัดชิดซ้ายสุด */
+    text-align: left;        /* ป้องกันกรณีที่มีคำสั่ง center จากที่อื่นมาทับ */
+}
+
+.logo-text h1, 
+.logo-text h2 {
+    margin: 0;               /* ลบระยะห่างที่บวมออกมา เพื่อให้ชิดกันพอดี */
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     /* ลด Padding ของการ์ดหลักเพื่อให้มีที่ว่างในมือถือมากขึ้น */
@@ -180,11 +198,13 @@
     .header-container {
         flex-direction: column;
         gap: 15px;
-        text-align: center;
+        text-align: left;
     }
 
     .logo-area {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: flex-start; /* ให้กลุ่มโลโก้ชิดซ้าย */
+        gap: 10px;
     }
 }
 

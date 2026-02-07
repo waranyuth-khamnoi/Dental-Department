@@ -128,10 +128,15 @@
     }
 
     .logo-area {
-        flex-direction: column;
-        gap: 5px;
+    display: flex;
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    gap: 15px;           /* ระยะห่างระหว่างโลโก้กับตัวหนังสือ */
     }
 
+    .logo-text {
+        text-align: left;        /* ให้ตัวหนังสือชิดซ้ายเทียบกับโลโก้ */
+    }
+    
     .logo-text h1 {
         font-size: 18px; /* ลดขนาดฟอนต์หัวข้อลง */
     }

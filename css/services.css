@@ -24,6 +24,11 @@
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+.service-card:active {
+    transform: scale(0.95);
+    background-color: #a68d5b;
+}
+
 .service-card:hover {
     transform: translateY(-5px);
     background-color: #b39a6a; /* สีเข้มขึ้นเล็กน้อยเมื่อ Hover */
@@ -42,8 +47,9 @@
 }
 
 .service-icon-bg img {
-    width: 60%;
-    height: auto;
+    width: 55px; /* ปรับขนาดให้พอดีกับวงกลม 100px */
+    height: 55px;
+    object-fit: contain; /* ป้องกันรูปบิดเบี้ยว */
 }
 
 .service-card h3 {

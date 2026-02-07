@@ -49,6 +49,10 @@
     align-items: center;
     gap: 20px;
     padding: 10px 0;
+    will-change: transform, opacity; /* ช่วยให้ Animation ลื่นไหลขึ้น */
+    border-radius: 10px;
+    padding-left: 10px !important; 
+    transition: background-color 0.3s ease;
 }
 
 .info-item:hover {

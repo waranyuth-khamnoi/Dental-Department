@@ -1,3 +1,13 @@
+/* ช่วยให้การเลื่อนดูนุ่มนวลขึ้น */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ป้องกันอาการกระตุกตอน Animation โหลด */
+.hero-content, .hero-image {
+    will-change: transform, opacity;
+}
+
 :root {
     --primary-yellow-dark: #e0b838;
     --text-dark: #1a1a1a;

@@ -88,6 +88,27 @@
     background-color: #2c3e50; /* สีน้ำเงินเข้ม */
 }
 
+/* จัดการพื้นที่โลโก้ให้เรียงแนวนอน */
+.logo-area {
+    display: flex;
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    gap: 15px;           /* ระยะห่างระหว่างรูปกับข้อความ */
+}
+
+/* จัดข้อความภายในให้ชิดซ้ายทั้งหมด */
+.logo-text {
+    display: flex;
+    flex-direction: column; /* ให้ชื่อโรงพยาบาลกับแผนกเรียงบน-ล่าง */
+    align-items: flex-start; /* บังคับให้ข้อความทุกบรรทัดชิดซ้าย */
+    text-align: left;        /* ป้องกันกรณีมีค่า default เป็น center */
+}
+
+.logo-text h1, 
+.logo-text h2 {
+    margin: 0;               /* ลบ margin ส่วนเกินออกเพื่อให้ชิดกันพอดี */
+    line-height: 1.2;        /* ปรับระยะห่างบรรทัดให้สวยงาม */
+}
+
 @media (max-width: 768px) {
     /* ปรับระยะห่างของการ์ดหลัก */
     .appointment-card {
@@ -105,12 +126,6 @@
         margin-left: 0; /* เอา margin ที่เคยผลักออกไปออก */
         display: block;
         margin-top: 5px;
-    }
-
-    /* ปรับปฏิทินให้เลื่อนได้ (ถ้ามี) หรือขยายเต็มจอ */
-    .card-actions {
-        width: 100%;
-        justify-content: center;
     }
 
     .btn-print {
@@ -143,7 +158,9 @@
     }
 
     .logo-area {
-        flex-direction: column;
+        flex-direction: row; 
+        justify-content: flex-start; /* หรือ center หากต้องการให้อยู่กลางหน้าจอ */
+        gap: 10px;
     }
 }
 

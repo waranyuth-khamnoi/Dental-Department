@@ -7,7 +7,7 @@
     font-weight: 500;
     margin-bottom: 40px;
     color: var(--text-dark); /* ใช้ตัวแปรจาก main.css ได้ */
-    border-left: 5px solid var(--primary-yellow);
+    border-left: 5px solid var(--primary-yellow-dark);
     padding-left: 15px;
 }
 
@@ -23,6 +23,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 .staff-img {
@@ -31,6 +33,10 @@
     height: auto;
     margin-bottom: 20px;
     transition: transform 0.3s ease-in-out;
+}
+
+.staff-img:active {
+    transform: scale(0.95);
 }
 
 .staff-card:hover .staff-img {
