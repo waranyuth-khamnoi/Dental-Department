@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Directory - Dental Department</title>
+    <link rel="icon" type="image/png" href="/images/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/staff_list.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <img src="/images/Logo.png" alt="Logo" width="60" height="60">
+                </div>
+                <div class="logo-text">
+                    <h1>โรงพยาบาลดอกคำใต้</h1>
+                    <h2>แผนกทันตกรรม</h2>
+                </div>
+            </div>
+            <div class="user-actions">
+                <button class="icon-btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button class="icon-btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container content-wrapper">
+        <div class="top-bar">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="ค้นหา">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <a href="/staff_manage" class="edit-link" style="text-decoration: none;">แก้ไขข้อมูล</a>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <table class="staff-table">
+                <thead>
+                    <tr>
+                        <th>รหัสพนักงาน</th>
+                        <th>ชื่อ</th>
+                        <th>นามสกุล</th>
+                        <th>ตำแหน่ง</th>
+                        <th>เบอร์โทรศัพท์</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onclick="window.location.href='/staff_info';" style="cursor: pointer;">
+                        <td>468286</td>
+                        <td>ทพ. กิตติศักดิ์</td>
+                        <td>วัฒนโชต</td>
+                        <td>ตรวจสุขภาพช่องปาก อุดฟัน ถอนฟัน</td>
+                        <td>0537216322</td>
+                    </tr>
+                    <tr>
+                        <td>468284</td>
+                        <td>ทพญ. พิมพ์ชนก</td>
+                        <td>ศรีวรรณิ</td>
+                        <td>ขูดหินปูน ให้คำแนะนำด้านสุขภาพช่องปาก</td>
+                        <td>0721683676</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/js/staff_list.js"></script>
+</body>
+</html>
