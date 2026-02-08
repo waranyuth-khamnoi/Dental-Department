@@ -10,6 +10,23 @@
     margin-bottom: 30px;
 }
 
+.btn-history {
+    display: inline-block;
+    padding: 8px 24px;
+    border: 1px solid #1a1a1a; /* เส้นขอบสีดำ/เทาเข้มตามรูป */
+    border-radius: 25px;       /* ปรับให้ขอบโค้งมนแบบ Pill shape */
+    text-decoration: none;     /* เอาเส้นใต้ลิงก์ออก */
+    color: #1a1a1a;            /* สีตัวอักษร */
+    font-size: 16px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+}
+
+.btn-history:hover {
+    background-color: #f5f5f5; /* เพิ่ม effect เวลาเอาเมาส์ไปชี้ */
+    border-color: #555;
+}
+
 /* Header Actions */
 .header-actions {
     display: flex;

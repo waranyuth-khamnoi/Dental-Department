@@ -1,0 +1,108 @@
+/* การตั้งค่าเพิ่มเติมจาก main.css */
+
+.back-nav {
+    margin: 40px 0;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-user-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+    transition: color 0.2s;
+}
+
+.icon-btn:hover {
+    color: var(--primary-yellow-dark);
+}
+
+/* Search Box */
+.table-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.search-wrapper {
+    position: relative;
+    width: 350px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 45px 10px 20px;
+    border: 1px solid #333;
+    border-radius: 25px;
+    font-family: var(--font-main);
+    font-size: 16px;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+}
+
+/* Table Style */
+.table-container {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden; /* เพื่อให้มุมโค้งทำงาน */
+    background: #fff;
+}
+
+.patient-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.patient-table th {
+    background-color: #fff;
+    padding: 20px 15px;
+    font-weight: 500;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.patient-table td {
+    padding: 20px 15px;
+    color: #333;
+    font-size: 15px;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.patient-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ปรับระยะขอบเล็กน้อย */
+.patient-table th:first-child, 
+.patient-table td:first-child {
+    padding-left: 30px;
+}
+
+.patient-table th:last-child, 
+.patient-table td:last-child {
+    padding-right: 30px;
+}
