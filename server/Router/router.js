@@ -38,6 +38,55 @@ router.get('/patient_info', (req, res) => {
   });
 });
 
+router.use(express.json());
+router.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  const query = "SELECT * FROM user_account WHERE username = ?";
+  db.query(query, [username], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ success: false, message: "Database Error" });
+    }
+    if (results.length > 0) {
+      const user = results[0];
+      if (user.password_hash === password) {
+        return res.json({ 
+          success: true, 
+          role: user.role,
+          message: "Login successful" 
+        });
+      } else {
+        return res.json({ success: false, message: "รหัสผ่านไม่ถูกต้อง" });
+      }
+    } else {
+      return res.json({ success: false, message: "ไม่พบชื่อผู้ใช้งานนี้" });
+    }
+  });
+});
+
+router.get('/staff_list', (req, res) => {
+  const query = "SELECT * FROM staff";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Database Error");
+    }
+    res.render('staff_list', { staffs: results });
+  });
+});
+
+router.get('/staff_info', (req, res) => {
+    const staffId = req.query.id;
+    const query = "SELECT * FROM staff WHERE staff_id = ?";
+    db.query(query, [staffId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database Error");
+        }
+        res.render('staff_info', { staff: results[0] || {} });
+    });
+});
+
 router.get('/about', (req, res) => {res.render('about')});
 router.get('/appointment', (req, res) => {res.render('appointment')});
 router.get('/contact', (req, res) => {res.render('contact')});

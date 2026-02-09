@@ -20,42 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
         loginBtn.disabled = true;
 
         try {
-            // 3. จำลองการส่งข้อมูลไปที่ Backend API
-            // ในสถานการณ์จริง คุณต้องเปลี่ยน URL เป็น endpoint ของเซิร์ฟเวอร์คุณ
-            const response = await simulateApiCall(username, password);
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
 
-            if (response.success) {
+            const data = await response.json();
+
+            if (data.success) {
                 alert('เข้าสู่ระบบสำเร็จ!');
-                // เก็บ Token หรือสถานะการ Login (ถ้ามี)
                 localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('staffName', username);
+                localStorage.setItem('userRole', data.role);
 
-                // 4. Redirect ไปยังหน้า registrayion
-                window.location.href = '/registration'; 
+                if (data.role === "1") {
+                    window.location.href = '/registration'; 
+                } else if (data.role === "0") {
+                    window.location.href = '/staff_list'; 
+                } else {
+                    window.location.href = '/'; 
+                }
             } else {
-                alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+                alert(data.message);
                 loginBtn.innerText = 'Sign In';
                 loginBtn.disabled = false;
             }
         } catch (error) {
-            console.error('Login Error:', error);
-            alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์');
+            console.error('Error:', error);
+            alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
             loginBtn.innerText = 'Sign In';
             loginBtn.disabled = false;
         }
     });
 });
-
-// ฟังก์ชันจำลองการเช็ค Login (เพื่อใช้ทดสอบก่อนต่อ Database จริง)
-function simulateApiCall(username, password) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // ทดสอบด้วย: user: admin / pass: 1234
-            if (username === 'admin' && password === '1234') {
-                resolve({ success: true });
-            } else {
-                resolve({ success: false });
-            }
-        }, 1000);
-    });
-}

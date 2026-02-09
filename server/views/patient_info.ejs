@@ -116,18 +116,36 @@
                         <div class="sub-section">
                             <p>โรคประจำตัว</p>
                             <div class="radio-inline">
-                                <label><input type="radio" name="disease" <%= !patient.c_diseases ? 'checked' : '' %>> ไม่มี</label>
-                                <label><input type="radio" name="disease" <%= patient.c_diseases ? 'checked' : '' %>> มี (ระบุ)</label>
-                                <input type="text" class="inline-input" value="<%= patient.c_diseases || '' %>">
+                                <label>
+                                    <input type="radio" name="disease" 
+                                    <%= (!patient.c_diseases || patient.c_diseases === 'ไม่มี') ? 'checked' : '' %>> ไม่มี
+                                </label>
+                                
+                                <label>
+                                    <input type="radio" name="disease" 
+                                    <%= (patient.c_diseases && patient.c_diseases !== 'ไม่มี') ? 'checked' : '' %>> มี (ระบุ)
+                                </label>
+                                
+                                <input type="text" class="inline-input" 
+                                value="<%= (patient.c_diseases === 'ไม่มี') ? '' : (patient.c_diseases || '') %>">
                             </div>
                         </div>
                     </div>
                     <div class="health-column">
                         <label class="section-label">ประวัติแพ้ยา</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="allergy" <%= !patient.drug_aller ? 'checked' : '' %>> ไม่มี</label>
-                            <label><input type="radio" name="allergy" <%= patient.drug_aller ? 'checked' : '' %>> มี (ระบุ)</label>
-                            <input type="text" class="inline-input" value="<%= patient.drug_aller || '' %>">
+                            <label>
+                                <input type="radio" name="allergy" 
+                                <%= (!patient.drug_aller || patient.drug_aller === 'ไม่มี') ? 'checked' : '' %>> ไม่มี
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="allergy" 
+                                <%= (patient.drug_aller && patient.drug_aller !== 'ไม่มี') ? 'checked' : '' %>> มี (ระบุ)
+                            </label>
+                            
+                            <input type="text" class="inline-input" 
+                            value="<%= (patient.drug_aller === 'ไม่มี') ? '' : (patient.drug_aller || '') %>">
                         </div>
                     </div>
                 </div>

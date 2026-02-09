@@ -58,20 +58,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="window.location.href='/staff_info';" style="cursor: pointer;">
-                        <td>468286</td>
-                        <td>ทพ. กิตติศักดิ์</td>
-                        <td>วัฒนโชต</td>
-                        <td>ตรวจสุขภาพช่องปาก อุดฟัน ถอนฟัน</td>
-                        <td>0537216322</td>
-                    </tr>
-                    <tr>
-                        <td>468284</td>
-                        <td>ทพญ. พิมพ์ชนก</td>
-                        <td>ศรีวรรณิ</td>
-                        <td>ขูดหินปูน ให้คำแนะนำด้านสุขภาพช่องปาก</td>
-                        <td>0721683676</td>
-                    </tr>
+                    <% if (staffs && staffs.length > 0) { %>
+                        <% staffs.forEach(staff => { %>
+                            <tr onclick="window.location.href='/staff_info?id=<%= staff.staff_id %>';" style="cursor: pointer;">
+                                <td><%= staff.staff_id %></td> <td><%= staff.title %><%= staff.name %></td> <td><%= staff.lastname %></td> <td><%= staff.department || 'ไม่ระบุ' %></td> <td><%= staff.phone %></td> </tr>
+                        <% }); %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5" style="text-align: center;">ไม่พบข้อมูลพนักงาน</td>
+                        </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>
