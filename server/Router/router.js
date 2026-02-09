@@ -87,6 +87,90 @@ router.get('/staff_info', (req, res) => {
     });
 });
 
+router.get('/staff_manage', (req, res) => {
+  const query = "SELECT * FROM staff";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Database Error");
+    }
+    // ส่งข้อมูล staffs ที่ได้จาก database ไปยังไฟล์ ejs
+    res.render('staff_manage', { staffs: results });
+  });
+});
+
+router.use(express.urlencoded({ extended: true }));
+
+router.post('/staff_add', (req, res) => {
+  const { staff_id, id_card, title, name, lastname, department, bd, phone, email, username, password } = req.body;
+
+    // 1. บันทึกลงตาราง staff
+    const sqlStaff = "INSERT INTO staff (staff_id, id_card, title, name, lastname, department, bd, phone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    db.query(sqlStaff, [staff_id, id_card, title, name, lastname, department, bd, phone, email], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("เกิดข้อผิดพลาดในการบันทึกข้อมูลบุคลากร");
+        }
+
+        // 2. บันทึกลงตาราง user_account สำหรับใช้ Login
+        const sqlUser = "INSERT INTO user_account (staff_id, username, password_hash, role) VALUES (?, ?, ?, ?)";
+        const role = (department === 'dentist') ? 'admin' : 'staff'; // กำหนด role ตามตำแหน่ง
+
+        db.query(sqlUser, [staff_id, username, password, role], (err2, result2) => {
+            if (err2) {
+                console.error(err2);
+                return res.status(500).send("เกิดข้อผิดพลาดในการสร้างบัญชีผู้ใช้");
+            }
+            // บันทึกสำเร็จ กลับไปหน้าจัดการ
+            res.send("<script>alert('บันทึกข้อมูลสำเร็จ'); window.location.href='/staff_manage';</script>");
+        });
+    });
+});
+
+router.get('/staff_edit', (req, res) => {
+    const staffId = req.query.id;
+    const query = "SELECT * FROM staff WHERE staff_id = ?";
+    db.query(query, [staffId], (err, results) => {
+        if (err || results.length === 0) {
+            return res.status(404).send("ไม่พบข้อมูลบุคลากร");
+        }
+        res.render('staff_edit', { staff: results[0] });
+    });
+});
+
+// 2. Route สำหรับรับข้อมูลที่แก้ไขแล้วบันทึกลง Database
+router.post('/staff_edit', (req, res) => {
+    const { staff_id, title, name, lastname, id_card, bd, phone, email } = req.body;
+    const sql = `UPDATE staff SET title=?, name=?, lastname=?, id_card=?, bd=?, phone=?, email=? WHERE staff_id=?`;
+    
+    db.query(sql, [title, name, lastname, id_card, bd, phone, email, staff_id], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("เกิดข้อผิดพลาดในการอัปเดตข้อมูล");
+        }
+        res.send("<script>alert('แก้ไขข้อมูลสำเร็จ'); window.location.href='/staff_manage';</script>");
+    });
+});
+
+router.delete('/api/staff_delete/:id', (req, res) => {
+    const staffId = req.params.id;
+    const sql = "DELETE FROM staff WHERE staff_id = ?";
+
+    db.query(sql, [staffId], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ success: false, message: "เกิดข้อผิดพลาดในการลบข้อมูล" });
+        }
+        
+        if (result.affectedRows > 0) {
+            res.json({ success: true, message: "ลบข้อมูลสำเร็จ" });
+        } else {
+            res.status(404).json({ success: false, message: "ไม่พบข้อมูลพนักงาน" });
+        }
+    });
+});
+
 router.get('/about', (req, res) => {res.render('about')});
 router.get('/appointment', (req, res) => {res.render('appointment')});
 router.get('/contact', (req, res) => {res.render('contact')});

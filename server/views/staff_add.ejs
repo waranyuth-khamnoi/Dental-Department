@@ -43,76 +43,72 @@
 
         <div class="form-container">
             <div class="form-header">เพิ่มข้อมูลบุคลากร</div>
-            <div class="form-card">
-                <form>
+             <div class="form-card">
+                 <div><form action="/staff_add" method="POST">
                     <div class="form-row">
                         <div class="form-group">
                             <label>รหัสพนักงาน</label>
-                            <input type="text" class="input-small">
+                            <input type="text" name="staff_id" class="input-small" required>
                         </div>
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text">
+                            <input type="text" name="username" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="text">
+                            <input type="text" name="password" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>คำนำหน้า</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="prefix"> ทพ.</label>
-                            <label><input type="radio" name="prefix"> ทพญ.</label>
-                            <label><input type="radio" name="prefix"> ผู้ช่วย</label>
+                            <label><input type="radio" name="title" value="ทพ." required> ทพ.</label>
+                            <label><input type="radio" name="title" value="ทพญ."> ทพญ.</label>
+                            <label><input type="radio" name="title" value="ผู้ช่วย"> ผู้ช่วย</label>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>ชื่อ</label>
-                            <input type="text">
+                            <input type="text" name="name" required>
                         </div>
                         <div class="form-group">
                             <label>นามสกุล</label>
-                            <input type="text">
+                            <input type="text" name="lastname" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>เลขบัตรประชาชน (13 หลัก)</label>
-                            <input type="text">
+                            <input type="text" name="id_card" maxlength="13" required>
                         </div>
                         <div class="form-group">
                             <label>วันเดือนปีเกิด</label>
-                            <div class="date-group">
-                                <input type="text" class="input-date">
-                                <input type="text" class="input-date">
-                                <input type="text" class="input-year">
-                            </div>
+                            <input type="date" name="bd" class="input-full" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>เบอร์โทรศัพท์</label>
-                            <input type="text">
+                            <input type="text" name="phone" required>
                         </div>
                         <div class="form-group">
                             <label>E-mail</label>
-                            <input type="email">
+                            <input type="email" name="email">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>ตำแหน่ง</label>
+                        <label>ตำแหน่ง/แผนก</label>
                         <div class="select-wrapper">
-                            <select>
+                            <select name="department" required>
                                 <option value="" disabled selected>เลือกตำแหน่ง</option>
-                                <option value="dentist">ทันตแพทย์</option>
-                                <option value="assistant">ผู้ช่วยทันตแพทย์</option>
+                                <option value="ทันตแพทย์">ทันตแพทย์</option>
+                                <option value="ผู้ช่วยทันตแพทย์">ผู้ช่วยทันตแพทย์</option>
                             </select>
                         </div>
                     </div>

@@ -44,72 +44,66 @@
             <div class="form-header">
                 แก้ไขข้อมูลบุคลากร
             </div>
-            <form class="form-content">
+            <form class="form-content" action="/staff_edit" method="POST">
+                
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label>รหัสพนักงาน</label>
-                        <input type="text" value="468286">
+                        <label>รหัสพนักงาน (ไม่สามารถแก้ไขได้)</label>
+                        <input type="text" name="staff_id" value="<%= staff.staff_id %>" readonly style="background-color: #f0f0f0;">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>คำนำหน้า</label>
                     <div class="radio-group">
-                        <label class="radio-item"><input type="radio" name="prefix" checked> ทพ.</label>
-                        <label class="radio-item"><input type="radio" name="prefix"> ทพญ.</label>
-                        <label class="radio-item"><input type="radio" name="prefix"> ผู้ช่วย</label>
+                        <label class="radio-item">
+                            <input type="radio" name="title" value="ทพ." <%= staff.title === 'ทพ.' ? 'checked' : '' %>> ทพ.
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="title" value="ทพญ." <%= staff.title === 'ทพญ.' ? 'checked' : '' %>> ทพญ.
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="title" value="ผู้ช่วย" <%= staff.title === 'ผู้ช่วย' ? 'checked' : '' %>> ผู้ช่วย
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-row two-cols">
                     <div class="form-group">
                         <label>ชื่อ</label>
-                        <input type="text" value="กิตติศักดิ์">
+                        <input type="text" name="name" value="<%= staff.name %>" required>
                     </div>
                     <div class="form-group">
                         <label>นามสกุล</label>
-                        <input type="text" value="วัฒนโชต">
+                        <input type="text" name="lastname" value="<%= staff.lastname %>" required>
                     </div>
                 </div>
 
                 <div class="form-row two-cols">
                     <div class="form-group">
                         <label>เลขบัตรประชาชน (13 หลัก)</label>
-                        <input type="text" value="1479832340">
+                        <input type="text" name="id_card" value="<%= staff.id_card %>" required>
                     </div>
                     <div class="form-group">
                         <label>วันเดือนปีเกิด</label>
-                        <div class="date-inputs">
-                            <input type="text" value="30" class="date-sm">
-                            <input type="text" value="2" class="date-sm">
-                            <input type="text" value="1997" class="date-md">
-                        </div>
+                        <input type="date" name="bd" value="<%= staff.bd.toISOString().split('T')[0] %>" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="form-row two-cols">
                     <div class="form-group">
                         <label>เบอร์โทรศัพท์</label>
-                        <input type="text" value="0537216322">
+                        <input type="text" name="phone" value="<%= staff.phone %>" required>
                     </div>
                     <div class="form-group">
                         <label>E-mail</label>
-                        <input type="email" value="kittisak34@gmail.com">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group half-width">
-                        <label>ตำแหน่ง</label>
-                        <select class="custom-select">
-                            <option>Value</option>
-                        </select>
+                        <input type="email" name="email" value="<%= staff.email %>">
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="button" class="btn-cancel">ยกเลิก</button>
-                    <button type="submit" class="btn-confirm">ยืนยันในการแก้ไข</button>
+                    <button type="button" class="btn-cancel" onclick="window.location.href='/staff_manage'">ยกเลิก</button> 
+                    <button type="submit" class="btn-confirm">บันทึกการแก้ไข</button> 
                 </div>
             </form>
         </div>

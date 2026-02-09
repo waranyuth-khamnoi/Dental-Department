@@ -17,25 +17,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteButtons = document.querySelectorAll('.action-btn.delete');
 
     deleteButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // ดึงชื่อพนักงานจากคอลัมน์ที่ 2 เพื่อใช้แสดงในตัวยืนยัน
+        btn.addEventListener('click', async function() {
             const row = this.closest('tr');
             const staffName = row.cells[1].textContent + " " + row.cells[2].textContent;
-            const staffId = row.cells[0].textContent;
+            const staffId = this.getAttribute('data-id'); // ดึง ID จาก data-attribute 
 
-            const confirmDelete = confirm(`คุณต้องการลบข้อมูลของ "${staffName}" (รหัส: ${staffId}) ใช่หรือไม่?`);
-            
-            if (confirmDelete) {
-                // ในระบบจริงต้องส่งค่า staffId ไปที่ API
-                console.log(`กำลังลบพนักงานรหัส: ${staffId}`);
-                
-                // เอฟเฟกต์ค่อยๆ จางหายก่อนลบแถวทิ้ง
-                row.style.transition = "opacity 0.3s ease";
-                row.style.opacity = "0";
-                setTimeout(() => {
-                    row.remove();
-                    alert("ลบข้อมูลสำเร็จ");
-                }, 300);
+            if (confirm(`คุณต้องการลบข้อมูลของ "${staffName}" (รหัส: ${staffId}) ใช่หรือไม่?`)) {
+                try {
+                    // ส่งคำขอไปที่ Server
+                    const response = await fetch(`/api/staff_delete/${staffId}`, {
+                        method: 'DELETE'
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // เอฟเฟกต์ลบแถวออกจากหน้าจอ
+                        row.style.transition = "opacity 0.3s ease";
+                        row.style.opacity = "0";
+                        setTimeout(() => {
+                            row.remove();
+                            alert(result.message);
+                        }, 300);
+                    } else {
+                        alert(result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้");
+                }
             }
         });
     });
