@@ -1,16 +1,12 @@
 /* จัดการเมนู Navigation แบบแคปซูลตามรูป */
+/* ทำให้เมนูแคปซูลเลื่อนได้บนมือถือ */
 .nav-menu-admin {
     display: flex;
     gap: 10px;
-    overflow-x: auto; /* เปิดการเลื่อนแนวนอน */
-    white-space: nowrap; /* ไม่ให้ข้อความขึ้นบรรทัดใหม่ */
-    padding-bottom: 5px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 8px;
     -webkit-overflow-scrolling: touch;
-}
-
-/* ซ่อน Scrollbar ของ Nav เพื่อความสวยงาม (Optional) */
-.nav-menu-admin::-webkit-scrollbar {
-    display: none;
 }
 
 .nav-admin-link {
@@ -42,13 +38,12 @@
     margin-right: auto;
 }
 
-/* ปรับ Tab Menu ให้เลื่อนได้ */
+/* ทำให้ Tab เมนูเลื่อนได้ */
 .tab-menu {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    margin-left: 0; /* ปรับให้ชิดซ้ายบนมือถือ */
-    border-bottom: 1px solid #ccc;
+    margin-left: 0;
 }
 
 .tab-btn {
@@ -130,7 +125,7 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 8px;
-    width: 200px;
+    width: 120px;
 }
 
 .health-info-grid {
@@ -162,6 +157,65 @@
     border-radius: 8px;
 }
 
+/* เพิ่มเติมจาก CSS เดิม */
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.short-input {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.checkbox-label, .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.btn-dark-action {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-dark-action:hover {
+    background-color: #000;
+}
+
+/* ปรับแต่งสี Tab ให้เป็นสีส้มเมื่อเลือก */
+.tab-btn.active {
+    background-color: #ff9f00; /* สีส้มตาม Mockup */
+    color: #000;
+    border-color: #ccc;
+    font-weight: 600;
+}
+
 /* กำหนดสีให้ปุ่ม Tab ทุกสถานะ */
 .tab-btn, 
 .tab-btn:visited, 
@@ -177,41 +231,38 @@
 }
 
 @media (max-width: 768px) {
-    /* ปรับระยะห่างของ Profile Card */
+    /* ปรับลด Padding ของ Card ลง */
     .profile-card {
-        padding: 20px; /* ลด padding ลงเพื่อให้มีพื้นที่แสดงผลมากขึ้น */
+        padding: 20px;
     }
 
-    /* เปลี่ยนฟอร์มจาก 2 คอลัมน์ เป็นบรรทัดเดียว */
-    .form-grid, 
-    .health-info-grid {
-        grid-template-columns: 1fr; 
-        gap: 15px;
+    /* ปรับตาราง Checkbox ให้แสดงผล 2 คอลัมน์บนมือถือ */
+    .checkbox-grid {
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px;
     }
 
-    /* ปรับส่วนวันเกิด (DOB) ให้ยืดหยุ่น */
-    .dob-wrapper {
-        flex-wrap: wrap; /* ให้ปีเลื่อนลงมาข้างล่างได้ถ้าที่ว่างไม่พอ */
-    }
-    
-    .dob-wrapper .form-control {
-        flex: 1;
-        min-width: 60px;
-    }
-
-    /* ปรับส่วน Radio Group ให้ห่างกันพอดี */
+    /* ปรับ Radio Group ให้วางซ้อนกันในแนวตั้งเพื่อให้กดง่ายขึ้น */
     .radio-group {
-        gap: 10px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
     }
 
-    /* ปรับช่อง Input ในประวัติแพ้ยา/โรคประจำตัว */
-    .radio-inline {
-        flex-wrap: wrap;
+    /* ช่อง Input สั้นๆ ให้ขยายยาวขึ้นหน่อยบนมือถือ */
+    .short-input {
+        max-width: 100%;
     }
-    
-    .inline-input {
-        width: 100%; /* ให้ช่องระบุชื่อยา/โรค ยาวเต็มบรรทัดในมือถือ */
-        margin-top: 5px;
+
+    /* ปรับปุ่มล่างสุดให้เต็มหน้าจอเพื่อให้กดง่ายด้วยนิ้วโป้ง */
+    .form-footer {
+        flex-direction: column-reverse; /* เอายืนยันไว้บน ยกเลิกไว้ล่าง */
+        gap: 10px;
+    }
+
+    .btn-dark-action {
+        width: 100%;
+        padding: 12px;
     }
 }
 

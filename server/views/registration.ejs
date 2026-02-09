@@ -70,30 +70,24 @@
                     <thead>
                         <tr>
                             <th>ลำดับ</th>
-                            <th>เวลา</th>
                             <th>ชื่อ-นามสกุล</th>
-                            <th>การรักษา</th>
-                            <th>ผลวินิจฉัย</th>
                             <th>สิทธิการรักษา</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr onclick="window.location='/patient_info';" style="cursor: pointer;">
-                            <td>1</td>
-                            <td>07:45</td>
-                            <td>ม่อนจุ๊กกุ๊ก อิอิ</td>
-                            <td>ผ่าฟันคุด</td>
-                            <td>ฟันเอียงชน</td>
-                            <td>ชำระเงินสด</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>08:00</td>
-                            <td>นากาซาโกะ อุอิ</td>
-                            <td>ขูดหินปูน</td>
-                            <td>หินปูนสะสม</td>
-                            <td>ชำระเงินสด</td>
-                        </tr>
+                        <% if (patients && patients.length > 0) { %>
+                            <% patients.forEach((patient, index) => { %>
+                                <tr onclick="window.location='/patient_info?hn=<%= patient.hn %>';" style="cursor: pointer;">
+                                    <td><%= patient.hn %></td>
+                                    <td><%= patient.title %><%= patient.patient_name %> <%= patient.patient_lastname %></td>
+                                    <td><%= patient.treatment %></td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="3">ไม่พบข้อมูลคนไข้</td>
+                            </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>

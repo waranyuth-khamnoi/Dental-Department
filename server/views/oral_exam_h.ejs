@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oral Examination - Dental Department</title>
+    <title>History Oral Examination - Dental Department</title>
     <link rel="icon" type="image/png" href="/images/Logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/oral_exam.css">
+    <link rel="stylesheet" href="/css/oral_exam_h.css">
 </head>
 <body>
 
@@ -25,9 +25,9 @@
                 </div>
             </div>
              <nav class="nav-menu-admin">
-                <a href="/registration" class="nav-admin-link">ทะเบียนทันตกรรม</a>
-                <a href="/patient_info" class="nav-admin-link active">รายงานทันตกรรม</a>
-                <a href="/diagnosis" class="nav-admin-link">รายการหัตถการ</a>
+                <a href="/history" class="nav-admin-link">ประวัติการรักษา</a>
+                <a href="/patient_info_h" class="nav-admin-link active">รายงานทันตกรรม</a>
+                <a href="/diagnosis_h" class="nav-admin-link">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
                 <span class="icon-user">
@@ -43,8 +43,8 @@
     <main class="container">
         <div class="form-container">
             <div class="tab-menu">
-                <a href="/patient_info" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
-                <a href="/oral_exam" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
+                <a href="/patient_info_h" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
+                <a href="/oral_exam_h" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
             </div>
         <div class="profile-card">
             <form>
@@ -102,17 +102,11 @@
                         <label class="radio-label"><input type="radio" name="tmj"> อ้าปากได้จำกัด</label>
                     </div>
                 </div>
-
-                <div class="form-footer">
-                    <a href="/registration" class="btn btn-dark-action" 
-                    style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ยกเลิก</a>
-                    <button type="submit" class="btn btn-dark-action">ยืนยัน</button>
-                </div>
             </form>
         </div>
         </div>
     </main>
 
-    <script src="/js/oral_exam.js"></script>
+    <script src="/js/oral_exam_h.js"></script>
 </body>
 </html>

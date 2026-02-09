@@ -38,4 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // เพิ่ม Logic การเปิด Modal หรือไปหน้าดูรายละเอียดที่นี่
         });
     });
+
+    tableRows.forEach(row => {
+        row.addEventListener('click', () => {
+            // ดึงชื่อคนไข้จาก column ที่ 4 (index 3) มาแสดงตัวอย่าง
+            const patientName = row.cells[3].innerText;
+            console.log(`เลือกคนไข้: ${patientName}`);
+            
+            // หากต้องการให้ทุกแถวคลิกแล้วไปหน้าเดียวกัน:
+            window.location.href = '/patient_info_h';
+        });
+    });
 });

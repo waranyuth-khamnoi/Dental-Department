@@ -28,7 +28,6 @@
                 <a href="/registration" class="nav-admin-link">ทะเบียนทันตกรรม</a>
                 <a href="/patient_info" class="nav-admin-link active">รายงานทันตกรรม</a>
                 <a href="/diagnosis" class="nav-admin-link">รายการหัตถการ</a>
-                <a href="/appointment" class="nav-admin-link">จัดการนัดหมาย</a>
             </nav>
             <div class="header-icons">
                 <span class="icon-user">
@@ -52,48 +51,62 @@
                 <div class="form-section">
                     <label class="section-label">คำนำหน้า</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="title" checked> นาย</label>
-                        <label class="radio-label"><input type="radio" name="title"> นาง</label>
-                        <label class="radio-label"><input type="radio" name="title"> นางสาว</label>
-                        <label class="radio-label"><input type="radio" name="title"> เด็กหญิง</label>
-                        <label class="radio-label"><input type="radio" name="title"> เด็กชาย</label>
+                        <label class="radio-label">
+                            <input type="radio" name="title" value="นาย" <%= patient.title === 'นาย' ? 'checked' : '' %>> นาย
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="title" value="นาง" <%= patient.title === 'นาง' ? 'checked' : '' %>> นาง
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="title" value="นางสาว" <%= patient.title === 'นางสาว' ? 'checked' : '' %>> นางสาว
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="title" value="เด็กหญิง" <%= patient.title === 'เด็กหญิง' ? 'checked' : '' %>> เด็กหญิง
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="title" value="เด็กชาย" <%= patient.title === 'เด็กชาย' ? 'checked' : '' %>> เด็กชาย
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-grid">
                     <div class="form-group">
                         <label>ชื่อ</label>
-                        <input type="text" class="form-control" value="ม่อนจุ๊กกุ๊ก">
+                        <input type="text" class="form-control" value="<%= patient.patient_name %>">
                     </div>
                     <div class="form-group">
                         <label>นามสกุล</label>
-                        <input type="text" class="form-control" value="อิอิ">
+                        <input type="text" class="form-control" value="<%= patient.patient_lastname %>">
                     </div>
                     <div class="form-group">
                         <label>เลขบัตรประชาชน (13 หลัก)</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" value="<%= patient.id_card_p %>">
                     </div>
                     <div class="form-group">
-                        <label>วันเดือนปีเกิด</label>
-                        <div class="dob-wrapper">
-                            <input type="text" class="form-control" value="26">
-                            <input type="text" class="form-control" value="4">
-                            <input type="text" class="form-control" value="1933">
-                        </div>
+                        <label>วัน/เดือน/ปี เกิด</label>
+                        <input type="date" class="form-control" value="<%= patient.birthdate ? new Date(patient.birthdate).toISOString().split('T')[0] : '' %>">
                     </div>
                     <div class="form-group">
                         <label>เบอร์โทรศัพท์</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" value="<%= patient.phone %>">
                     </div>
                 </div>
 
-                <div class="form-section">
+                <div class="benefit-section">
                     <label class="section-label">สิทธิการรักษา</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="benefit"> บัตรทอง</label>
-                        <label class="radio-label"><input type="radio" name="benefit"> ประกันสังคม</label>
-                        <label class="radio-label"><input type="radio" name="benefit"> ข้าราชการ</label>
-                        <label class="radio-label"><input type="radio" name="benefit" checked> ชำระเงินสด</label>
+                        <label class="radio-label">
+                            <input type="radio" name="benefit" value="บัตรทอง" <%= patient.treatment === 'บัตรทอง' ? 'checked' : '' %>> บัตรทอง
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="benefit" value="ประกันสังคม" <%= patient.treatment === 'ประกันสังคม' ? 'checked' : '' %>> ประกันสังคม
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="benefit" value="ข้าราชการ" <%= patient.treatment === 'ข้าราชการ' ? 'checked' : '' %>> ข้าราชการ
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="benefit" value="ชำระเงินสด" <%= patient.treatment === 'ชำระเงินสด' ? 'checked' : '' %>> ชำระเงินสด
+                        </label>
                     </div>
                 </div>
 
@@ -103,18 +116,18 @@
                         <div class="sub-section">
                             <p>โรคประจำตัว</p>
                             <div class="radio-inline">
-                                <label><input type="radio" name="disease" checked> ไม่มี</label>
-                                <label><input type="radio" name="disease"> มี (ระบุ)</label>
-                                <input type="text" class="inline-input">
+                                <label><input type="radio" name="disease" <%= !patient.c_diseases ? 'checked' : '' %>> ไม่มี</label>
+                                <label><input type="radio" name="disease" <%= patient.c_diseases ? 'checked' : '' %>> มี (ระบุ)</label>
+                                <input type="text" class="inline-input" value="<%= patient.c_diseases || '' %>">
                             </div>
                         </div>
                     </div>
                     <div class="health-column">
                         <label class="section-label">ประวัติแพ้ยา</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="allergy" checked> ไม่มี</label>
-                            <label><input type="radio" name="allergy"> มี (ระบุ)</label>
-                            <input type="text" class="inline-input">
+                            <label><input type="radio" name="allergy" <%= !patient.drug_aller ? 'checked' : '' %>> ไม่มี</label>
+                            <label><input type="radio" name="allergy" <%= patient.drug_aller ? 'checked' : '' %>> มี (ระบุ)</label>
+                            <input type="text" class="inline-input" value="<%= patient.drug_aller || '' %>">
                         </div>
                     </div>
                 </div>
