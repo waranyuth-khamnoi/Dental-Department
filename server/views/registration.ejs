@@ -77,10 +77,10 @@
                     <tbody>
                         <% if (patients && patients.length > 0) { %>
                             <% patients.forEach((patient, index) => { %>
-                                <tr onclick="window.location='/patient_info?hn=<%= patient.hn %>';" style="cursor: pointer;">
-                                    <td><%= patient.hn %></td>
-                                    <td><%= patient.title %><%= patient.patient_name %> <%= patient.patient_lastname %></td>
-                                    <td><%= patient.treatment %></td>
+                                <tr style="cursor: pointer;">
+                                    <td><%= patient.hn %></td> <td><%= patient.title %><%= patient.patient_name %> <%= patient.patient_lastname %></td>
+                                    <td><%= patient.treatment %>
+                                </td>
                                 </tr>
                             <% }); %>
                         <% } else { %>

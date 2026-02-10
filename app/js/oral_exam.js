@@ -32,24 +32,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. ระบบการส่งฟอร์ม (Form Submission)
     examForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // ป้องกันการรีโหลดหน้าจอ
+    e.preventDefault();
 
-        // รวบรวมข้อมูลจากฟอร์ม
-        const formData = {
-            toothStatus: Array.from(toothStatusCheckboxes)
-                .filter(cb => cb.checked)
-                .map(cb => cb.parentElement.innerText.trim()),
-            remainingTeeth: document.querySelector('.short-input').value,
-            occlusion: document.querySelector('input[name="occlusion"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
-            gumCondition: document.querySelector('input[name="gum"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
-            calculus: document.querySelector('input[name="calculus"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
-            tmj: document.querySelector('input[name="tmj"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ'
-        };
+    // 1. ดึง order_id จาก URL (เช่น ?hn=...&order_id=5)
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('order_id');
 
-        console.log('ข้อมูลผลการตรวจช่องปากที่บันทึก:', formData);
-        
-        // แสดงข้อความสำเร็จและเปลี่ยนหน้า
-        alert('บันทึกผลการตรวจเรียบร้อยแล้ว');
-        window.location.href = '/registration';
+    // 2. รวบรวมข้อมูล พร้อมใส่ order_id ลงไป
+    const formData = {
+        order_id: orderId, // เพิ่มฟิลด์นี้
+        toothStatus: Array.from(toothStatusCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.parentElement.innerText.trim()),
+        remainingTeeth: document.querySelector('.short-input').value,
+        occlusion: document.querySelector('input[name="occlusion"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
+        gumCondition: document.querySelector('input[name="gum"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
+        calculus: document.querySelector('input[name="calculus"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
+        tmj: document.querySelector('input[name="tmj"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ'
+    };
+
+    // 3. ยิง fetch ไปบันทึก (สมมติว่าสร้าง Route /save-oral-exam ไว้)
+    fetch('/save-oral-exam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    }).then(() => {
+        alert('บันทึกผลการตรวจเรียบร้อย');
     });
+});
 });

@@ -27,15 +27,62 @@ router.get('/registration', (req, res) => {
 
 router.get('/patient_info', (req, res) => {
   const hn = req.query.hn;
-  const query = "SELECT * FROM patient WHERE hn = ?";
+  const order_id = req.query.order_id; // รับค่า order_id จาก URL
 
+  if (!hn) {
+    return res.status(400).send("กรุณาระบุ HN ของคนไข้");
+  }
+
+  const query = "SELECT * FROM patient WHERE hn = ?";
   db.query(query, [hn], (err, results) => {
     if (err) {
       console.error(err);
       return res.status(500).send("Database Error");
     }
-    res.render('patient_info', { patient: results[0] || {} });
+
+    if (results.length === 0) {
+      return res.status(404).send("ไม่พบข้อมูลคนไข้");
+    }
+
+    // ส่งทั้งข้อมูลคนไข้ (patient) และ order_id ไปที่ EJS
+    res.render('patient_info', { 
+      patient: results[0], 
+      order_id: order_id 
+    });
   });
+});
+
+router.get('/oral_exam', (req, res) => {
+  const hn = req.query.hn;
+  const order_id = req.query.order_id;
+
+  // ดึงข้อมูลคนไข้มาแสดงหัวกระดาษด้วย (ถ้าต้องการ)
+  const query = "SELECT * FROM patient WHERE hn = ?";
+  db.query(query, [hn], (err, results) => {
+    if (err) return res.status(500).send("Database Error");
+
+    res.render('oral_exam', { 
+      patient: results[0] || {}, 
+      order_id: order_id 
+    });
+  });
+});
+
+router.get('/diagnosis', (req, res) => {
+    const hn = req.query.hn;
+    const order_id = req.query.order_id;
+
+    // ดึงข้อมูลคนไข้เพื่อเอามาแสดงชื่อที่หัวกระดาษ
+    const query = "SELECT * FROM patient WHERE hn = ?";
+    db.query(query, [hn], (err, results) => {
+        if (err) return res.status(500).send("Database Error");
+        
+        // ส่งทั้งข้อมูล patient และ order_id ไปที่หน้า ejs
+        res.render('diagnosis', { 
+            patient: results[0] || {}, 
+            order_id: order_id 
+        });
+    });
 });
 
 router.use(express.json());
@@ -171,19 +218,26 @@ router.delete('/api/staff_delete/:id', (req, res) => {
     });
 });
 
+router.get('/create-order', (req, res) => {
+    const hn = req.query.hn;
+    const sql = "INSERT INTO order_request (hn, order_datetime) VALUES (?, NOW())";
+    
+    db.query(sql, [hn], (err, result) => {
+        if (err) return res.status(500).send(err);
+        const newOrderId = result.insertId; // ดึง order_id ที่สร้างใหม่
+        res.redirect(`/patient_info?hn=${hn}&order_id=${newOrderId}`);
+    });
+});
+
 router.get('/about', (req, res) => {res.render('about')});
 router.get('/appointment', (req, res) => {res.render('appointment')});
 router.get('/contact', (req, res) => {res.render('contact')});
 router.get('/services', (req, res) => {res.render('services')});
-router.get('/patient_info', (req, res) => {res.render('patient_info')});
 router.get('/patient_info_h', (req, res) => {res.render('patient_info_h')});
 router.get('/staff_login', (req, res) => {res.render('staff_login')});
-router.get('/registration', (req, res) => {res.render('registration')});
-router.get('/diagnosis', (req, res) => {res.render('diagnosis')});
 router.get('/diagnosis_h', (req, res) => {res.render('diagnosis_h')});
 router.get('/history', (req, res) => {res.render('history')});
 router.get('/new_appointment', (req, res) => {res.render('new_appointment')});
-router.get('/oral_exam', (req, res) => {res.render('oral_exam')});
 router.get('/oral_exam_h', (req, res) => {res.render('oral_exam_h')});
 router.get('/staff_add', (req, res) => {res.render('staff_add')});
 router.get('/staff_edit', (req, res) => {res.render('staff_edit')});

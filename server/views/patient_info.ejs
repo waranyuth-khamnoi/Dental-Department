@@ -26,8 +26,8 @@
             </div>
             <nav class="nav-menu-admin">
                 <a href="/registration" class="nav-admin-link">ทะเบียนทันตกรรม</a>
-                <a href="/patient_info" class="nav-admin-link active">รายงานทันตกรรม</a>
-                <a href="/diagnosis" class="nav-admin-link">รายการหัตถการ</a>
+                 <a href="/oral_exam?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link active">รายงานทันตกรรม</a>
+                 <a href="/diagnosis?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
                 <span class="icon-user">
@@ -43,8 +43,8 @@
     <main class="container">
         <div class="form-container">
             <div class="tab-menu">
-                <a href="/patient_info" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
-                <a href="/oral_exam" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
+                <a href="/patient_info?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
+                <a href="/oral_exam?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
             </div>
 
             <div class="profile-card">

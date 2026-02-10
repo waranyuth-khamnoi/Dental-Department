@@ -43,15 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. การจัดการคลิกบนแถว (Row Click)
     // ใน HTML คุณใส่ onclick ไว้ที่แถวแรกแล้ว แต่แถวต่อๆ ไปยังไม่มี
     // ใช้ JS จัดการจะช่วยให้โค้ดสะอาดกว่า
-    tableRows.forEach(row => {
-        row.addEventListener('click', () => {
-            // ดึงชื่อคนไข้จาก column ที่ 4 (index 3) มาแสดงตัวอย่าง
-            const patientName = row.cells[3].innerText;
-            console.log(`เลือกคนไข้: ${patientName}`);
-            
-            // หากต้องการให้ทุกแถวคลิกแล้วไปหน้าเดียวกัน:
-            // window.location.href = 'patient_info.html';
-        });
+   tableRows.forEach(row => {
+    row.addEventListener('click', () => {
+        // ดึงค่า hn จากคอลัมน์แรก (td ตัวแรก)
+        const hn = row.cells[0].innerText.trim(); 
+        
+        // ส่งไปที่ Route /create-order เพื่อสร้างเลข Order ใน DB
+        window.location.href = `/create-order?hn=${hn}`;
     });
+});
 });
 

@@ -54,45 +54,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. จัดการเมื่อกดปุ่ม "ยืนยัน"
     diagnosisForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // ป้องกันการรีโหลดหน้าจอ
+    e.preventDefault();
 
-        const data = getFormData();
+    // 1. ดึง order_id จาก URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('order_id');
 
-        // ตรวจสอบว่ามีการเลือกอย่างน้อย 1 รายการหรือไม่
-        if (Object.keys(data).length === 0) {
-            alert('กรุณาเลือกรายการหัตถการอย่างน้อย 1 รายการ');
-            return;
-        }
+    // 2. ฟังก์ชันช่วยดึงค่า Radio ที่ถูกเลือก
+    const getRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.parentElement.innerText.trim();
 
-        // แสดงผลข้อมูล (ในที่นี้คือ Log ไว้ดู หากต่อ Database สามารถใช้ fetch ได้ตรงนี้)
-        console.log('ข้อมูลที่เลือก:', data);
-        
-        // ตัวอย่าง SweetAlert หรือ Alert ธรรมดา
-        alert('บันทึกข้อมูลการตรวจและวินิจฉัยเรียบร้อยแล้ว');
-        
-        // หากต้องการเปลี่ยนหน้าหลังจากบันทึกสำเร็จ
-        window.location.href = 'registration.html';
+    const data = {
+        order_id: orderId, // เพิ่มฟิลด์นี้
+        p1: getRadioValue('p1'),
+        p2: getRadioValue('p2'),
+        p3: getRadioValue('p3'),
+        p4: getRadioValue('p4'),
+        p5: getRadioValue('p5'),
+        p6: getRadioValue('p6')
+    };
+
+    // 3. ส่งข้อมูลไปที่ Server
+    fetch('/save-diagnosis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
+        alert('บันทึกการวินิจฉัยเรียบร้อยแล้ว');
+        window.location.href = '/registration'; // กลับหน้าหลัก
     });
-
-    // 3. เพิ่มลูกเล่น: คลิกที่ตัวอักษรแล้ว Radio ทำงาน (เพิ่ม User Experience)
-    const optionItems = document.querySelectorAll('.option-item');
-    optionItems.forEach(item => {
-        item.addEventListener('mouseover', () => {
-            item.style.color = '#FF9F00';
-        });
-        item.addEventListener('mouseout', () => {
-            item.style.color = 'inherit';
-        });
-    });
-
-    // 4. จัดการปุ่มยกเลิก (เพิ่มการยืนยันก่อนออก)
-    cancelButton.addEventListener('click', (e) => {
-        const data = getFormData();
-        if (Object.keys(data).length > 0) {
-            const confirmLeave = confirm('คุณมีการเลือกรายการค้างอยู่ ต้องการยกเลิกและกลับหน้าหลักใช่หรือไม่?');
-            if (!confirmLeave) {
-                e.preventDefault();
-            }
-        }
-    });
+});
 });
