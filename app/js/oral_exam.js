@@ -1,26 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const examForm = document.querySelector('form');
+    const examForm = document.getElementById('oral_exam');
     const logoutBtn = document.querySelector('.icon-logout');
+    
+    // ส่วนที่ 1: ระบบจัดการ Checkbox (ถ้าติ๊ก "ปกติ" ให้เอาอันอื่นออก)
+    const normalStatusCheckbox = document.getElementById('normalStatus');
+    const toothStatusCheckboxes = document.querySelectorAll('input[name="t_decay"], input[name="t_worn"], input[name="t_broken"], input[name="t_miss"], input[name="t_fill"], input[name="t_wisdom"], input[name="t_misali"]');
 
     if (normalStatusCheckbox) {
         normalStatusCheckbox.addEventListener('change', (e) => {
             if (e.target.checked) {
-                toothStatusCheckboxes.forEach(cb => {
-                    if (cb !== normalStatusCheckbox) cb.checked = false;
-                });
+                toothStatusCheckboxes.forEach(cb => cb.checked = false);
             }
         });
 
         toothStatusCheckboxes.forEach(cb => {
-            if (cb !== normalStatusCheckbox) {
-                cb.addEventListener('change', (e) => {
-                    if (e.target.checked) normalStatusCheckbox.checked = false;
-                });
-            }
+            cb.addEventListener('change', (e) => {
+                if (e.target.checked) normalStatusCheckbox.checked = false;
+            });
         });
     }
 
-    // 2. ระบบ Logout
+    // ส่วนที่ 2: ระบบ Logout (คงไว้ตามต้องการ)
     if (logoutBtn) {
         logoutBtn.style.cursor = 'pointer';
         logoutBtn.addEventListener('click', () => {
@@ -30,34 +30,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. ระบบการส่งฟอร์ม (Form Submission)
-    examForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+    // ส่วนที่ 3: ระบบการส่งฟอร์มเพื่อบันทึกข้อมูล
+    if (examForm) {
+        examForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    // 1. ดึง order_id จาก URL (เช่น ?hn=...&order_id=5)
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('order_id');
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id'); 
+            const hn = urlParams.get('hn');
 
-    // 2. รวบรวมข้อมูล พร้อมใส่ order_id ลงไป
-    const formData = {
-        order_id: orderId, // เพิ่มฟิลด์นี้
-        toothStatus: Array.from(toothStatusCheckboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.parentElement.innerText.trim()),
-        remainingTeeth: document.querySelector('.short-input').value,
-        occlusion: document.querySelector('input[name="occlusion"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
-        gumCondition: document.querySelector('input[name="gum"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
-        calculus: document.querySelector('input[name="calculus"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ',
-        tmj: document.querySelector('input[name="tmj"]:checked')?.parentElement.innerText.trim() || 'ไม่ได้ระบุ'
-    };
+            if (!orderId) {
+                alert('ไม่พบรหัสใบสั่งงาน (Order ID)');
+                return;
+            }
 
-    // 3. ยิง fetch ไปบันทึก (สมมติว่าสร้าง Route /save-oral-exam ไว้)
-    fetch('/save-oral-exam', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-    }).then(() => {
-        alert('บันทึกผลการตรวจเรียบร้อย');
-    });
+            const formData = new FormData(examForm);
+            
+            // เตรียม Data ส่งไป Server (ดึงค่าจาก Radio และ Number)
+            const data = {
+                order_id: orderId,
+                t_unfill_cavities: formData.get('t_unfill_cavities') || 0,
+                // สำหรับ Radio ถ้าไม่ได้เลือกจะเป็น null
+            };
+
+            // ดึงค่าจาก Checkbox ทั้งหมด (ถ้าติ๊กเป็น 'Y' ถ้าไม่ติ๊กเป็น 'N')
+            const checkFields = [
+                't_decay', 't_worn', 't_broken', 't_miss', 't_fill', 
+                't_wisdom', 't_misali', 't_normal', 'normal_occ', 
+                'deep_bite', 'overlap', 'inflamed', 't_loose', 
+                'bleed', 'plaque', 'plaque_above', 'plaque_under', 
+                'jawpian', 'clicking', 'limit_open'
+            ];
+
+            checkFields.forEach(f => {
+                data[f] = formData.get(f) === 'Y' ? 'Y' : 'N';
+            });
+
+            try {
+                const response = await fetch('/oral_exam', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('บันทึกข้อมูลเรียบร้อย');
+                    window.location.href = `/diagnosis?hn=${hn}&order_id=${orderId}`;
+                } else {
+                    alert('บันทึกไม่สำเร็จ: ' + (result.message || 'Unknown Error'));
+                }
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
+            }
+        });
+    }
+  
 });
+
+
+document.addEventListener('click', async (e) => {
+    // หาปุ่มโดยไม่สนว่าจะเป็นตัวอักษรข้างใน หรือขอบปุ่ม
+    const target = e.target.closest('.nav-admin-link, .btn-cancel-order');
+
+    if (target) {
+        // เช็คว่าลิงก์นั้นส่งไปหน้า registration หรือไม่ (ใช้ .pathname จะแม่นยำกว่า)
+        const isRegis = target.pathname === '/registration' || target.getAttribute('href') === '/registration';
+        
+        if (isRegis) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id');
+
+            if (orderId) {
+                e.preventDefault(); // หยุดการเปลี่ยนหน้า
+
+                if (confirm('คุณต้องการยกเลิกคิวงานนี้และกลับไปหน้าทะเบียนใช่หรือไม่?')) {
+                    try {
+                        const response = await fetch(`/delete-order/${orderId}`, {
+                            method: 'DELETE'
+                        });
+
+                        if (response.ok) {
+                            window.location.href = '/registration';
+                        } else {
+                            window.location.href = '/registration';
+                        }
+                    } catch (err) {
+                        window.location.href = '/registration';
+                    }
+                }
+            }
+        }
+    }
 });

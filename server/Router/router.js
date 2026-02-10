@@ -2,6 +2,8 @@ const mysql = require('mysql2');
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -23,6 +25,23 @@ router.get('/registration', (req, res) => {
     }
     res.render('registration', { patients: results });
   });
+});
+
+router.delete('/delete-order/:order_id', (req, res) => {
+    const orderId = req.params.order_id;
+    
+    // ลบเรียงลำดับเพื่อไม่ให้ติด Foreign Key
+    db.query("DELETE FROM diagnosis WHERE order_id = ?", [orderId], () => {
+        db.query("DELETE FROM oral_exam WHERE order_id = ?", [orderId], () => {
+            db.query("DELETE FROM order_request WHERE order_id = ?", [orderId], (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ success: false });
+                }
+                res.json({ success: true });
+            });
+        });
+    });
 });
 
 router.get('/patient_info', (req, res) => {
@@ -84,6 +103,54 @@ router.get('/diagnosis', (req, res) => {
         });
     });
 });
+
+router.post('/oral_exam', (req, res) => {
+    const d = req.body;
+    
+    // คำสั่ง SQL สำหรับ insert ข้อมูล 22 ฟิลด์
+    const sql = `INSERT INTO report 
+        (order_id, t_decay, t_worn, t_broken, t_miss, t_fill, t_wisdom, t_misali, t_normal, t_unfill_cavities, 
+        normal_occ, deep_bite, overlap, inflamed, t_loose, bleed, plaque, plaque_above, plaque_under, 
+        jawpian, clicking, limit_open) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    // ตรวจสอบ params: ต้องมี 22 ตัวเป๊ะๆ ตามลำดับ SQL ด้านบน
+    const params = [
+        d.order_id,          // 1
+        d.t_decay,           // 2
+        d.t_worn,            // 3
+        d.t_broken,          // 4
+        d.t_miss,            // 5
+        d.t_fill,            // 6
+        d.t_wisdom,          // 7
+        d.t_misali,          // 8
+        d.t_normal,          // 9
+        d.t_unfill_cavities, // 10
+        d.normal_occ,        // 11
+        d.deep_bite,         // 12
+        d.overlap,           // 13
+        d.inflamed,          // 14
+        d.t_loose,           // 15
+        d.bleed,             // 16
+        d.plaque,            // 17
+        d.plaque_above,      // 18
+        d.plaque_under,      // 19
+        d.jawpian,           // 20
+        d.clicking,          // 21
+        d.limit_open         // 22
+    ];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            console.error("======== DATABASE ERROR ========");
+            console.error(err); // ดูรายละเอียด error ในหน้า Terminal/Command Prompt
+            return res.status(500).json({ success: false, message: err.sqlMessage });
+        }
+        res.json({ success: true });
+    });
+});
+
+// 2. สำหรับกดยกเลิก (ลบ order_id ออกจาก order_request)
 
 router.use(express.json());
 router.post('/api/login', (req, res) => {
@@ -228,6 +295,57 @@ router.get('/create-order', (req, res) => {
         res.redirect(`/patient_info?hn=${hn}&order_id=${newOrderId}`);
     });
 });
+
+router.post('/diagnosis', (req, res) => {
+    const d = req.body;
+
+    // 1. บันทึก Diagnosis ก่อน
+    const sqlInsertDiag = `INSERT INTO diagnosis 
+        (order_id, prevent, re_dentistry, oral_sur, root_treatment, endodontics, gp_disease) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    const paramsDiag = [d.order_id, d.prevent, d.re_dentistry, d.oral_sur, d.root_treatment, d.endodontics, d.gp_disease];
+
+    db.query(sqlInsertDiag, paramsDiag, (err) => {
+        if (err) return res.status(500).json({ success: false, message: "บันทึก Diagnosis ล้มเหลว" });
+
+        // 2. ย้ายข้อมูลเข้า p_h โดยใช้ order_id เชื่อมหาข้อมูลคนไข้
+        const sqlMoveToHistory = `
+            INSERT INTO p_h (order_id, hn, title, patient_name, patient_lastname, id_card_p, birthdate, phone, treatment, c_diseases, drug_aller)
+            SELECT o.order_id, p.hn, p.title, p.patient_name, p.patient_lastname, p.id_card_p, p.birthdate, p.phone, p.treatment, p.c_diseases, p.drug_aller
+            FROM patient p
+            JOIN order_request o ON p.hn = o.hn
+            WHERE o.order_id = ?`;
+
+        db.query(sqlMoveToHistory, [d.order_id], (err) => {
+            if (err) {
+                console.error("Move to p_h Error:", err.message);
+                return res.status(500).json({ success: false, message: "ข้อมูลไม่บันทึกใน p_h: " + err.message });
+            }
+
+            // 3. หา HN เพื่อเอาไปลบในตาราง patient
+            db.query("SELECT hn FROM order_request WHERE order_id = ?", [d.order_id], (err, rows) => {
+                if (err || rows.length === 0) return res.json({ success: true });
+                const hnToDelete = rows[0].hn;
+
+                // 4. ขั้นตอนลบเฉพาะ patient โดยไม่ให้ Error (ใช้วิธีปิดการเช็คชั่วคราว)
+                db.query("SET FOREIGN_KEY_CHECKS = 0", (err) => {
+                    db.query("DELETE FROM patient WHERE hn = ?", [hnToDelete], (err) => {
+                        db.query("SET FOREIGN_KEY_CHECKS = 1", () => {
+                            if (err) {
+                                console.error("Delete Patient Error:", err.message);
+                                return res.json({ success: true, warning: "บันทึก p_h แล้วแต่ลบคนไข้ไม่ได้" });
+                            }
+                            console.log("บันทึก p_h และลบคนไข้สำเร็จ");
+                            res.json({ success: true });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
 
 router.get('/about', (req, res) => {res.render('about')});
 router.get('/appointment', (req, res) => {res.render('appointment')});

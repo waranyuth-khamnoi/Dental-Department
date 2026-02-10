@@ -61,3 +61,38 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('บันทึกข้อมูลสำเร็จ');
     };
 });
+
+document.addEventListener('click', async (e) => {
+    // หาปุ่มโดยไม่สนว่าจะเป็นตัวอักษรข้างใน หรือขอบปุ่ม
+    const target = e.target.closest('.nav-admin-link, .btn-cancel-order');
+
+    if (target) {
+        // เช็คว่าลิงก์นั้นส่งไปหน้า registration หรือไม่ (ใช้ .pathname จะแม่นยำกว่า)
+        const isRegis = target.pathname === '/registration' || target.getAttribute('href') === '/registration';
+        
+        if (isRegis) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id');
+
+            if (orderId) {
+                e.preventDefault(); // หยุดการเปลี่ยนหน้า
+
+                if (confirm('คุณต้องการยกเลิกคิวงานนี้และกลับไปหน้าทะเบียนใช่หรือไม่?')) {
+                    try {
+                        const response = await fetch(`/delete-order/${orderId}`, {
+                            method: 'DELETE'
+                        });
+
+                        if (response.ok) {
+                            window.location.href = '/registration';
+                        } else {
+                            window.location.href = '/registration';
+                        }
+                    } catch (err) {
+                        window.location.href = '/registration';
+                    }
+                }
+            }
+        }
+    }
+});

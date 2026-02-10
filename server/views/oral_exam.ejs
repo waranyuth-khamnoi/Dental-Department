@@ -27,7 +27,6 @@
              <nav class="nav-menu-admin">
                 <a href="/registration" class="nav-admin-link">ทะเบียนทันตกรรม</a>
                  <a href="/oral_exam?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link active">รายงานทันตกรรม</a>
-                 <a href="/diagnosis?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
                 <span class="icon-user">
@@ -47,65 +46,65 @@
                 <a href="/oral_exam?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
             </div>
         <div class="profile-card">
-            <form id="oral_exam">
-             <input type="hidden" id="order_id" name="order_id" value="<%= order_id %>">
+            <form id="oral_exam" method="POST" action="/oral_exam">
+                <input type="hidden" id="order_id" name="order_id" value="<%= order_id %>">
                 <div class="form-section">
                     <label class="section-label">สภาพฟัน</label>
                     <div class="checkbox-grid">
-                        <label class="checkbox-label"><input type="checkbox"> ฟันผุ</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันสึก</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันแตก</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันหาย</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันอุด</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันคุด</label>
-                        <label class="checkbox-label"><input type="checkbox"> การเรียงตัวของฟันผิดปกติ</label>
-                        <label class="checkbox-label"><input type="checkbox"> ปกติ</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_decay" value="Y"> ฟันผุ</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_worn" value="Y"> ฟันสึก</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_broken" value="Y"> ฟันแตก</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_miss" value="Y"> ฟันหาย</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_fill" value="Y"> ฟันอุด</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_wisdom" value="Y"> ฟันคุด</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_misali" value="Y"> การเรียงตัวของฟันผิดปกติ</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_normal" value="Y" id="normalStatus"> ปกติ</label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">ฟันผุที่ยังไม่ได้อุด</label>
-                    <input type="text" class="form-control short-input">
+                    <input type="number" name="t_unfill_cavities" class="form-control short-input">
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">การสบฟัน</label>
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="occlusion"> การสบฟันปกติ</label>
-                        <label class="radio-label"><input type="radio" name="occlusion"> ฟันสบลึก</label>
-                        <label class="radio-label"><input type="radio" name="occlusion"> ฟันสบคร่อม</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label"><input type="checkbox" name="normal_occ" value="Y"> การสบฟันปกติ</label>
+                        <label class="checkbox-label"><input type="checkbox" name="deep_bite" value="Y"> ฟันสบลึก</label>
+                        <label class="checkbox-label"><input type="checkbox" name="overlap" value="Y"> ฟันสบคร่อม</label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">เหงือกและปริทันต์</label>
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="gum"> เหงือกอักเสบ บวม แดง</label>
-                        <label class="radio-label"><input type="radio" name="gum"> ฟันโยก</label>
-                        <label class="radio-label"><input type="radio" name="gum"> เลือดออกง่าย</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label"><input type="checkbox" name="inflamed" value="Y"> เหงือกอักเสบ บวม แดง</label>
+                        <label class="checkbox-label"><input type="checkbox" name="t_loose" value="Y"> ฟันโยก</label>
+                        <label class="checkbox-label"><input type="checkbox" name="bleed" value="Y"> เลือดออกง่าย</label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">คราบและหินปูน</label>
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="calculus"> คราบจุลินทรีย์</label>
-                        <label class="radio-label"><input type="radio" name="calculus"> คราบหินปูนเหนือเหงือก</label>
-                        <label class="radio-label"><input type="radio" name="calculus"> คราบหินปูนใต้เหงือก</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label"><input type="checkbox" name="plaque" value="Y"> คราบจุลินทรีย์</label>
+                        <label class="checkbox-label"><input type="checkbox" name="plaque_above" value="Y"> คราบหินปูนเหนือเหงือก</label>
+                        <label class="checkbox-label"><input type="checkbox" name="plaque_under" value="Y"> คราบหินปูนใต้เหงือก</label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">ข้อต่อขากรรไกร</label>
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="tmj"> ปวดขากรรไกร</label>
-                        <label class="radio-label"><input type="radio" name="tmj"> เสียงคลิกขณะอ้าปาก</label>
-                        <label class="radio-label"><input type="radio" name="tmj"> อ้าปากได้จำกัด</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label"><input type="checkbox" name="jawpian" value="Y"> ปวดขากรรไกร</label>
+                        <label class="checkbox-label"><input type="checkbox" name="clicking" value="Y"> เสียงคลิกขณะอ้าปาก</label>
+                        <label class="checkbox-label"><input type="checkbox" name="limit_open" value="Y"> อ้าปากได้จำกัด</label>
                     </div>
                 </div>
 
                 <div class="form-footer">
-                    <a href="/registration" class="btn btn-dark-action" 
+                    <a href="/registration" class="btn-dark btn-cancel-order"
                     style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ยกเลิก</a>
                     <button type="submit" class="btn btn-dark-action">ยืนยัน</button>
                 </div>

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableRows = document.querySelectorAll('.data-table tbody tr');
     const dateInputs = document.querySelectorAll('.date-input');
     const logoutBtn = document.querySelector('.icon-logout');
+    
 
     // 1. ระบบค้นหา (Search Function)
     // ค้นหาได้จากทุกคอลัมน์ในตาราง (ชื่อ, การรักษา, ผลวินิจฉัย)

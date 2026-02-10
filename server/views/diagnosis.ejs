@@ -26,7 +26,6 @@
             </div>
             <nav class="nav-menu-admin">
                 <a href="/registration" class="nav-admin-link">ทะเบียนทันตกรรม</a>
-                 <a href="/oral_exam?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link">รายงานทันตกรรม</a>
                  <a href="/diagnosis?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link active">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
@@ -47,57 +46,57 @@
             </div>
             
             <div class="diagnosis-card">
-                <form id="diagnosis">
+               <form id="diagnosisForm">
                  <input type="hidden" id="order_id" name="order_id" value="<%= order_id %>">
+    
                     <div class="diag-section">
                         <label class="section-title">ป้องกันโรค</label>
                         <div class="options-grid">
-                            <label class="option-item"><input type="radio" name="p1"> ขูดหินปูน</label>
-                            <label class="option-item"><input type="radio" name="p1"> ขัดฟัน</label>
-                            <label class="option-item"><input type="radio" name="p1"> เคลือบฟลูออไรด์</label>
+                            <label class="option-item"><input type="radio" name="p1" value="Y"> ขูดหินปูน</label>
+                            <label class="option-item"><input type="radio" name="p1" value="Y"> ขัดฟัน</label>
+                            <label class="option-item"><input type="radio" name="p1" value="Y"> เคลือบฟลูออไรด์</label>
                         </div>
                     </div>
 
                     <div class="diag-section">
                         <label class="section-title">ทันตกรรมบูรณะ</label>
                         <div class="options-grid">
-                            <label class="option-item"><input type="radio" name="p2"> อุดฟัน</label>
+                            <label class="option-item"><input type="radio" name="p2" value="Y"> อุดฟัน</label>
                         </div>
                     </div>
 
                     <div class="diag-section">
                         <label class="section-title">ศัลยกรรมช่องปาก</label>
                         <div class="options-grid">
-                            <label class="option-item"><input type="radio" name="p3"> ถอนฟัน</label>
-                            <label class="option-item"><input type="radio" name="p3"> ผ่าฟันคุด</label>
+                            <label class="option-item"><input type="radio" name="p3" value="Y"> ถอนฟัน</label>
+                            <label class="option-item"><input type="radio" name="p3" value="Y"> ผ่าฟันคุด</label>
                         </div>
                     </div>
 
                     <div class="diag-section">
                         <label class="section-title">รักษารากฟัน</label>
                         <div class="options-grid">
-                            <label class="option-item"><input type="radio" name="p4"> รักษารากฟัน</label>
+                            <label class="option-item"><input type="radio" name="p4" value="Y"> รักษารากฟัน</label>
                         </div>
                     </div>
 
                     <div class="diag-section">
                         <label class="section-title">ทันตกรรมรากฟัน</label>
                         <div class="options-grid">
-                            <label class="option-item"><input type="radio" name="p5"> ทำฟันปลอมถอดได้</label>
+                            <label class="option-item"><input type="radio" name="p5" value="Y"> ทำฟันปลอมถอดได้</label>
                         </div>
                     </div>
 
                     <div class="diag-section">
                         <label class="section-title">โรคเหงือกและปริทันต์</label>
                         <div class="options-grid">
-                            <label class="option-item"><input type="radio" name="p6"> ขูดหินปูนและเกลารากฟัน</label>
-                            <label class="option-item"><input type="radio" name="p6"> ผ่าตัดปริทันต์</label>
+                            <label class="option-item"><input type="radio" name="p6" value="Y"> ขูดหินปูนและเกลารากฟัน</label>
+                            <label class="option-item"><input type="radio" name="p6" value="Y"> ผ่าตัดปริทันต์</label>
                         </div>
                     </div>
 
                     <div class="diag-actions">
-                        <a href="/registration" class="btn-dark" 
-                        style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ยกเลิก</a>
+                        <a href="/registration" class="btn-dark" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ยกเลิก</a>
                         <button type="submit" class="btn-dark">ยืนยัน</button>
                     </div>
                 </form>
