@@ -17,14 +17,41 @@ router.get('/', (req, res) => {
 });
 
 router.get('/registration', (req, res) => {
-  const query = "SELECT * FROM patient";
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Database Error");
+    // ถ้าไม่มีข้อมูลการ login ใน session ให้เด้งกลับไปหน้า login
+    if (!req.session.user) {
+        return res.redirect('/staff_login');
     }
-    res.render('registration', { patients: results });
-  });
+
+    const query = "SELECT * FROM patient";
+    db.query(query, (err, results) => {
+        res.render('registration', { 
+            patients: results, 
+            user: req.session.user // ข้อมูลที่มี staff_id จะถูกส่งไปที่นี่
+        });
+    });
+});
+
+router.post('/create-order', (req, res) => {
+    const { hn, staff_id } = req.body;
+    
+    // 1. ลองเช็คใน Terminal ว่าค่าส่งมาถึง Server ไหม
+    console.log("Data received:", { hn, staff_id });
+
+    // 2. ตรวจสอบชื่อคอลัมน์: ในตารางของคุณชื่อ order_date หรือ order_datetime?
+    // ถ้าใน DB ชื่อ order_datetime ให้ใช้ชื่อนั้น
+    const sql = "INSERT INTO order_request (hn, staff_id, order_datetime) VALUES (?, ?, NOW())";
+    
+    db.query(sql, [hn, staff_id], (err, result) => {
+        if (err) {
+            // บรรทัดนี้จะบอก Error จริงๆ ในหน้าจอ CMD/Terminal ที่คุณรัน Node
+            console.error("SQL Error รายละเอียด:", err.message); 
+            return res.status(500).json({ 
+                success: false, 
+                message: "Database Error: " + err.message 
+            });
+        }
+        res.json({ success: true, order_id: result.insertId });
+    });
 });
 
 router.delete('/delete-order/:order_id', (req, res) => {
@@ -154,28 +181,38 @@ router.post('/oral_exam', (req, res) => {
 
 router.use(express.json());
 router.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  const query = "SELECT * FROM user_account WHERE username = ?";
-  db.query(query, [username], (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ success: false, message: "Database Error" });
-    }
-    if (results.length > 0) {
-      const user = results[0];
-      if (user.password_hash === password) {
-        return res.json({ 
-          success: true, 
-          role: user.role,
-          message: "Login successful" 
-        });
-      } else {
-        return res.json({ success: false, message: "รหัสผ่านไม่ถูกต้อง" });
-      }
-    } else {
-      return res.json({ success: false, message: "ไม่พบชื่อผู้ใช้งานนี้" });
-    }
-  });
+    const { username, password } = req.body;
+
+    // แก้ SQL ใหม่: เชื่อมตาราง staff และ user_account เข้าด้วยกัน
+    const sql = `
+        SELECT s.staff_id, s.name, s.lastname, u.role 
+        FROM user_account u
+        JOIN staff s ON u.staff_id = s.staff_id
+        WHERE u.username = ? AND u.password_hash = ?
+    `;
+
+    db.query(sql, [username, password], (err, results) => {
+        if (err) {
+            console.error("SQL Error:", err.message);
+            return res.status(500).json({ success: false, message: "เกิดข้อผิดพลาดที่ระบบฐานข้อมูล" });
+        }
+
+        if (results.length > 0) {
+            // เก็บข้อมูลลง Session
+            req.session.user = {
+                staff_id: results[0].staff_id,
+                name: results[0].name + " " + results[0].lastname,
+                role: results[0].role
+            };
+
+            res.json({ 
+                success: true, 
+                role: results[0].role 
+            });
+        } else {
+            res.json({ success: false, message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" });
+        }
+    });
 });
 
 router.get('/staff_list', (req, res) => {

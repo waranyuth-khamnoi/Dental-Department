@@ -55,3 +55,55 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 });
 
+async function createOrder(hn) { 
+    const staffIdElement = document.getElementById('current_staff_id');
+    
+    if (!staffIdElement || !staffIdElement.value) {
+        alert("ไม่พบข้อมูลเจ้าหน้าที่ กรุณาล็อกอินใหม่");
+        return;
+    }
+
+    const staffId = staffIdElement.value;
+    console.log("กำลังสร้าง Order สำหรับ HN:", hn, "โดย Staff:", staffId); // เช็คใน Console ดูว่าค่ามาไหม
+
+    try {
+        const response = await fetch('/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                hn: hn, 
+                staff_id: staffId 
+            })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            window.location.href = `/patient_info?hn=${hn}&order_id=${result.order_id}`;
+        } else {
+            alert("สร้างใบสั่งงานไม่สำเร็จ: " + (result.message || ""));
+        }
+    } catch (err) {
+        console.error("Fetch Error:", err);
+        alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
+    }
+}
+
+// 2. ส่วนจัดการ UI อื่นๆ
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('.search-input');
+    const tableRows = document.querySelectorAll('.data-table tbody tr');
+    const logoutBtn = document.querySelector('.icon-logout');
+
+    // ระบบค้นหา
+    if (searchInput) {
+        searchInput.addEventListener('keyup', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            tableRows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+    }
+
+    
+});
