@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navMenu.style.textAlign = 'center';
         });
     }
-
     // --- 4. Hero Section: Image Parallax Effect ---
     // เพิ่มลูกเล่นให้รูปภาพขยับตามเมาส์เล็กน้อย (หน้า Main)
     const heroImg = document.querySelector('.hero-img');
