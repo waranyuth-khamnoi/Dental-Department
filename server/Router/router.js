@@ -274,7 +274,7 @@ router.post('/staff_add', (req, res) => {
 
         // 2. บันทึกลงตาราง user_account สำหรับใช้ Login
         const sqlUser = "INSERT INTO user_account (staff_id, username, password_hash, role) VALUES (?, ?, ?, ?)";
-        const role = (department === 'dentist') ? 'admin' : 'staff'; // กำหนด role ตามตำแหน่ง
+        const role = (department === 'dentist') ? '0' : '1'; // กำหนด role ตามตำแหน่ง
 
         db.query(sqlUser, [staff_id, username, password, role], (err2, result2) => {
             if (err2) {
