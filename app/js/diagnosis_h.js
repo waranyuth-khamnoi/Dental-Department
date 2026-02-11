@@ -1,98 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const diagnosisForm = document.getElementById('diagnosisForm');
+    // --- ส่วนที่ 1: ระบบ Logout (ทำให้กดได้แน่นอน) ---
     const logoutBtn = document.querySelector('.icon-logout');
-
-    // 1. ระบบจัดการการเลือก Radio Buttons
-    // เพิ่มฟังก์ชันเพื่อให้สามารถ "ยกเลิกการเลือก" Radio button ได้ (ถ้าคลิกซ้ำที่ตัวเดิม)
-    const allRadios = document.querySelectorAll('input[type="radio"]');
-    allRadios.forEach(radio => {
-        radio.addEventListener('click', function(e) {
-            if (this.wasChecked) {
-                this.checked = false;
-                this.wasChecked = false;
-            } else {
-                // เคลียร์สถานะ wasChecked ของ radio ตัวอื่นในกลุ่มเดียวกัน
-                const groupName = this.getAttribute('name');
-                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => r.wasChecked = false);
-                this.wasChecked = true;
-            }
-        });
-    });
-
-    // 2. ระบบ Logout
     if (logoutBtn) {
-        logoutBtn.style.cursor = 'pointer';
-        logoutBtn.addEventListener('click', () => {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // ป้องกันการทำงานซ้อนทับ
             if (confirm('ยืนยันการออกจากระบบ?')) {
                 window.location.href = '/staff_login';
             }
         });
     }
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const diagnosisForm = document.querySelector('form');
-    const cancelButton = document.querySelector('.btn-dark[style*="text-decoration: none"]');
+    // --- ส่วนที่ 2: ดึงข้อมูลหัตถการมาติ๊ก (Checked) ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('order_id');
 
-    // 1. ฟังก์ชันสำหรับการดึงข้อมูลจาก Radio Buttons
-    const getFormData = () => {
-        const formData = new FormData(diagnosisForm);
-        const selectedServices = {};
+    if (orderId) {
+        fetch(`/api/diagnosis-data/${orderId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    const mapping = {
+                        p1: data.prevent,
+                        p2: data.re_dentistry,
+                        p3: data.oral_sur,
+                        p4: data.root_treatment,
+                        p5: data.endodontics,
+                        p6: data.gp_disease
+                    };
 
-        // วนลูปหาค่าที่ถูกเลือกในแต่ละหมวด (p1 - p6)
-        for (let i = 1; i <= 6; i++) {
-            const fieldName = `p${i}`;
-            const selectedOption = diagnosisForm.querySelector(`input[name="${fieldName}"]:checked`);
-            
-            if (selectedOption) {
-                // ดึง Text ที่อยู่ข้างๆ Radio
-                selectedServices[fieldName] = selectedOption.parentElement.textContent.trim();
-            }
-        }
-        return selectedServices;
-    };
+                    Object.keys(mapping).forEach(name => {
+                        const val = mapping[name];
+                        if (val && val !== 'N') {
+                            // หา radio ที่ตรงทั้งชื่อกลุ่ม (name) และค่า (value)
+                            const radio = document.querySelector(`input[name="${name}"][value="${val}"]`);
+                            if (radio) {
+                                radio.checked = true;
+                                radio.dataset.wasChecked = "true"; // เก็บสถานะไว้
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(err => console.error("Error loading data:", err));
+    }
 
-    // 2. จัดการเมื่อกดปุ่ม "ยืนยัน"
-    diagnosisForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // ป้องกันการรีโหลดหน้าจอ
+    // --- ส่วนที่ 3: ระบบ Toggle Radio (กดแล้วเลือก/ยกเลิกได้) ---
 
-        const data = getFormData();
-
-        // ตรวจสอบว่ามีการเลือกอย่างน้อย 1 รายการหรือไม่
-        if (Object.keys(data).length === 0) {
-            alert('กรุณาเลือกรายการหัตถการอย่างน้อย 1 รายการ');
-            return;
-        }
-
-        // แสดงผลข้อมูล (ในที่นี้คือ Log ไว้ดู หากต่อ Database สามารถใช้ fetch ได้ตรงนี้)
-        console.log('ข้อมูลที่เลือก:', data);
-        
-        // ตัวอย่าง SweetAlert หรือ Alert ธรรมดา
-        alert('บันทึกข้อมูลการตรวจและวินิจฉัยเรียบร้อยแล้ว');
-        
-        // หากต้องการเปลี่ยนหน้าหลังจากบันทึกสำเร็จ
-        window.location.href = 'registration.html';
-    });
-
-    // 3. เพิ่มลูกเล่น: คลิกที่ตัวอักษรแล้ว Radio ทำงาน (เพิ่ม User Experience)
-    const optionItems = document.querySelectorAll('.option-item');
-    optionItems.forEach(item => {
-        item.addEventListener('mouseover', () => {
-            item.style.color = '#FF9F00';
-        });
-        item.addEventListener('mouseout', () => {
-            item.style.color = 'inherit';
-        });
-    });
-
-    // 4. จัดการปุ่มยกเลิก (เพิ่มการยืนยันก่อนออก)
-    cancelButton.addEventListener('click', (e) => {
-        const data = getFormData();
-        if (Object.keys(data).length > 0) {
-            const confirmLeave = confirm('คุณมีการเลือกรายการค้างอยู่ ต้องการยกเลิกและกลับหน้าหลักใช่หรือไม่?');
-            if (!confirmLeave) {
-                e.preventDefault();
-            }
-        }
-    });
 });

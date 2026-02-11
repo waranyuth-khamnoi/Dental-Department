@@ -336,12 +336,20 @@ router.get('/create-order', (req, res) => {
 router.post('/diagnosis', (req, res) => {
     const d = req.body;
 
-    // 1. บันทึก Diagnosis ก่อน
     const sqlInsertDiag = `INSERT INTO diagnosis 
         (order_id, prevent, re_dentistry, oral_sur, root_treatment, endodontics, gp_disease) 
         VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
-    const paramsDiag = [d.order_id, d.prevent, d.re_dentistry, d.oral_sur, d.root_treatment, d.endodontics, d.gp_disease];
+    // ค่าที่ส่งมาจะเป็น ชื่อหัตถการ (String) หรือ null
+    const paramsDiag = [
+        d.order_id, 
+        d.prevent, 
+        d.re_dentistry, 
+        d.oral_sur, 
+        d.root_treatment, 
+        d.endodontics, 
+        d.gp_disease
+    ];
 
     db.query(sqlInsertDiag, paramsDiag, (err) => {
         if (err) return res.status(500).json({ success: false, message: "บันทึก Diagnosis ล้มเหลว" });
@@ -456,6 +464,46 @@ router.get('/oral_exam_h', (req, res) => {
             reportData: results[0] || {}, 
             order_id: order_id 
         });
+    });
+});
+
+router.get('/diagnosis_h', (req, res) => {
+    const order_id = req.query.order_id;
+
+    if (!order_id) {
+        return res.status(400).send("ไม่พบรหัสใบสั่งงาน");
+    }
+
+    // ดึงข้อมูลจากตาราง diagnosis มาเตรียมไว้
+    const sql = "SELECT * FROM diagnosis WHERE order_id = ?";
+    db.query(sql, [order_id], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database Error");
+        }
+
+        // ส่ง diagData และ order_id ไปที่หน้า diagnosis_h.ejs
+        res.render('diagnosis_h', { 
+            diagData: results[0] || {}, 
+            order_id: order_id 
+        });
+    });
+});
+
+router.get('/api/diagnosis-data/:order_id', (req, res) => {
+    const order_id = req.params.order_id;
+    
+    // ลองเปลี่ยนเป็นตารางที่เก็บประวัติ (ถ้าคุณย้ายข้อมูลไปแล้วอาจชื่อ diagnosis_h)
+    // แต่ถ้ายังไม่จบขั้นตอนการรักษา ข้อมูลจะอยู่ใน diagnosis
+    const sql = "SELECT * FROM diagnosis WHERE order_id = ?"; 
+    
+    db.query(sql, [order_id], (err, results) => {
+        if (err) {
+            console.error("Database Error:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        console.log("Data from DB:", results[0]); // ตรวจสอบใน Terminal ว่าข้อมูลออกมาไหม
+        res.json(results[0] || {});
     });
 });
 
