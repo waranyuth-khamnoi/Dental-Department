@@ -89,31 +89,53 @@ router.get('/patient_info', (req, res) => {
     });
 });
 router.get('/oral_exam', (req, res) => {
-  const hn = req.query.hn;
-  const order_id = req.query.order_id;
+    
+    if (!req.session.user) {
+        return res.redirect('/staff_login');
+    }
 
-  const query = "SELECT * FROM patient WHERE hn = ?";
-  db.query(query, [hn], (err, results) => {
-    if (err) return res.status(500).send("Database Error");
+    const order_id = req.query.order_id;
 
-    res.render('oral_exam', { 
-      patient: results[0] || {}, 
-      order_id: order_id 
+    const query = `
+        SELECT patient.*, order_request.order_id 
+        FROM patient 
+        JOIN order_request ON patient.hn = order_request.hn
+        WHERE order_request.order_id = ?
+    `;
+
+    db.query(query, [order_id], (err, results) => {
+        if (err) return res.status(500).send("Database Error");
+
+        res.render('oral_exam', { 
+            patient: results[0] || {}, 
+            order_id: order_id,
+            user: req.session.user
+        });
     });
-  });
 });
 
 router.get('/diagnosis', (req, res) => {
-    const hn = req.query.hn;
+
+    if (!req.session.user) {
+        return res.redirect('/staff_login');
+    }
+
     const order_id = req.query.order_id;
 
-    const query = "SELECT * FROM patient WHERE hn = ?";
-    db.query(query, [hn], (err, results) => {
+    const query = `
+        SELECT patient.*, order_request.order_id 
+        FROM patient 
+        JOIN order_request ON patient.hn = order_request.hn
+        WHERE order_request.order_id = ?
+    `;
+
+    db.query(query, [order_id], (err, results) => {
         if (err) return res.status(500).send("Database Error");
 
         res.render('diagnosis', { 
             patient: results[0] || {}, 
-            order_id: order_id 
+            order_id: order_id,
+            user: req.session.user 
         });
     });
 });

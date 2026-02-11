@@ -29,6 +29,14 @@
                  <a href="/diagnosis?hn=<%= patient.hn %>&order_id=<%= order_id %>" class="nav-admin-link active">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
+                <div class="user-profile-info" style="text-align: right; margin-right: 15px; display: inline-block; vertical-align: middle;">
+                    <span class="user-name" style="display: block; font-weight: 600; font-size: 0.85em; color: #333;">
+                        <%= user ? user.name : 'ไม่ได้เข้าสู่ระบบ' %>
+                    </span>
+                    <span class="user-role" style="display: block; font-size: 0.7em; color: #666;">
+                        <%= user && user.role === '0' ? 'Admin' : 'ทันตแพทย์' %>
+                    </span>
+                </div>
                 <span class="icon-user">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 </span>
