@@ -6,52 +6,41 @@ let isCreatingOrder = false;
  * @param {string} hn - รหัส HN ของคนไข้
  */
 async function createOrder(hn) {
-    // ถ้ากำลังทำงานอยู่ (true) ให้หยุดฟังก์ชันทันที
-    if (isCreatingOrder) {
-        console.log("ระบบกำลังประมวลผล กรุณารอสักครู่...");
-        return;
-    }
+    if (isCreatingOrder) return;
 
-    // ดึงค่า staff_id จาก input hidden ในหน้า registration.ejs
     const staffIdElement = document.getElementById('current_staff_id');
     const staffId = staffIdElement ? staffIdElement.value : null;
 
-    if (!staffId || staffId === "" || staffId === "undefined") {
+    if (!staffId || staffId === "undefined" || staffId === "") {
         alert("ไม่พบข้อมูลเจ้าหน้าที่ กรุณาล็อกอินใหม่");
         window.location.href = '/staff_login';
         return;
     }
 
-    // เริ่มทำงาน: ล็อคสถานะป้องกันการกดซ้ำ
-    isCreatingOrder = true;
-    console.log("กำลังสร้าง Order สำหรับ HN:", hn, "โดย Staff ID:", staffId);
+    isCreatingOrder = true; // ล็อกปุ่ม
 
     try {
         const response = await fetch('/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                hn: hn, 
-                staff_id: staffId 
-            })
+            body: JSON.stringify({ hn, staff_id: staffId })
         });
 
         const result = await response.json();
 
         if (result.success) {
-            // เมื่อสำเร็จ ย้ายหน้าไปยังหน้าข้อมูลคนไข้พร้อมเลข order_id ใหม่
-            window.location.href = `/patient_info?hn=${hn}&order_id=${result.order_id}`;
+            // ไปหน้าถัดไปพร้อมส่ง order_id ไปด้วย
+            window.location.href = `/patient_info?order_id=${result.order_id}`;
         } else {
-            alert("สร้างใบสั่งงานไม่สำเร็จ: " + (result.message || "เกิดข้อผิดพลาดที่ระบบ"));
-            isCreatingOrder = false; // ปลดล็อกถ้าไม่สำเร็จ เพื่อให้กดใหม่ได้
+            alert("เกิดข้อผิดพลาด: " + result.message);
         }
     } catch (err) {
-        console.error("Fetch Error:", err);
-        alert("เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์");
-        isCreatingOrder = false; // ปลดล็อกถ้า Error เพื่อให้กดใหม่ได้
+        console.error("Error:", err);
+        alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้");
+    } finally {
+        isCreatingOrder = false; // ปลดล็อกปุ่มเสมอ ไม่ว่าจะสำเร็จหรือพลาด
     }
 }
-
 // 2. ส่วนจัดการ UI (ทำงานเมื่อโหลดหน้า HTML เสร็จ)
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('.search-input');
