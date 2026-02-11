@@ -26,8 +26,8 @@
             </div>
              <nav class="nav-menu-admin">
                 <a href="/history" class="nav-admin-link">ประวัติการรักษา</a>
-                <a href="/patient_info_h" class="nav-admin-link active">รายงานทันตกรรม</a>
-                <a href="/diagnosis_h" class="nav-admin-link">รายการหัตถการ</a>
+                <a href="/patient_info_h?order_id=<%= order_id %>" class="nav-admin-link active">รายงานทันตกรรม</a>
+                <a href="/diagnosis_h?order_id=<%= order_id %>" class="nav-admin-link">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
                 <span class="icon-user">
@@ -43,63 +43,70 @@
     <main class="container">
         <div class="form-container">
             <div class="tab-menu">
-                <a href="/patient_info_h" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
-                <a href="/oral_exam_h" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
+                <a href="/patient_info_h?order_id=<%= order_id %>" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
+                <a href="/oral_exam_h?order_id=<%= order_id %>" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
             </div>
         <div class="profile-card">
             <form>
                 <div class="form-section">
                     <label class="section-label">สภาพฟัน</label>
                     <div class="checkbox-grid">
-                        <label class="checkbox-label"><input type="checkbox"> ฟันผุ</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันสึก</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันแตก</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันหาย</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันอุด</label>
-                        <label class="checkbox-label"><input type="checkbox"> ฟันคุด</label>
-                        <label class="checkbox-label"><input type="checkbox"> การเรียงตัวของฟันผิดปกติ</label>
-                        <label class="checkbox-label"><input type="checkbox"> ปกติ</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_decay === 'Y' ? 'checked' : '' %> disabled> ฟันผุ</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_worn === 'Y' ? 'checked' : '' %> disabled> ฟันสึก</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_broken === 'Y' ? 'checked' : '' %> disabled> ฟันแตก</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_miss === 'Y' ? 'checked' : '' %> disabled> ฟันหาย</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_fill === 'Y' ? 'checked' : '' %> disabled> ฟันอุด</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_wisdom === 'Y' ? 'checked' : '' %> disabled> ฟันคุด</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_misali === 'Y' ? 'checked' : '' %> disabled> การเรียงตัวของฟันผิดปกติ</label>
+                        <label class="checkbox-label"><input type="checkbox" <%= reportData.t_normal === 'Y' ? 'checked' : '' %> disabled> ปกติ</label>
                     </div>
-                </div>
+                </div>enabled
 
                 <div class="form-section">
                     <label class="section-label">ฟันผุที่ยังไม่ได้อุด</label>
-                    <input type="text" class="form-control short-input">
+                    <input type="text" class="form-control short-input" 
+                        value="<%= reportData.t_unfill_cavities || 0 %>" disabled>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">การสบฟัน</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="occlusion"> การสบฟันปกติ</label>
-                        <label class="radio-label"><input type="radio" name="occlusion"> ฟันสบลึก</label>
-                        <label class="radio-label"><input type="radio" name="occlusion"> ฟันสบคร่อม</label>
+                        <label class="radio-label">
+                            <input type="radio" <%= reportData.normal_occ === 'Y' ? 'checked' : '' %> disabled> การสบฟันปกติ
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" <%= reportData.deep_bite === 'Y' ? 'checked' : '' %> disabled> ฟันสบลึก
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" <%= reportData.overlap === 'Y' ? 'checked' : '' %> disabled> ฟันสบคร่อม
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">เหงือกและปริทันต์</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="gum"> เหงือกอักเสบ บวม แดง</label>
-                        <label class="radio-label"><input type="radio" name="gum"> ฟันโยก</label>
-                        <label class="radio-label"><input type="radio" name="gum"> เลือดออกง่าย</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.inflamed === 'Y' ? 'checked' : '' %> disabled> เหงือกอักเสบ บวม แดง</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.t_loose === 'Y' ? 'checked' : '' %> disabled> ฟันโยก</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.bleed === 'Y' ? 'checked' : '' %> disabled> เลือดออกง่าย</label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">คราบและหินปูน</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="calculus"> คราบจุลินทรีย์</label>
-                        <label class="radio-label"><input type="radio" name="calculus"> คราบหินปูนเหนือเหงือก</label>
-                        <label class="radio-label"><input type="radio" name="calculus"> คราบหินปูนใต้เหงือก</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.plaque === 'Y' ? 'checked' : '' %> disabled> คราบจุลินทรีย์</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.plaque_above === 'Y' ? 'checked' : '' %> disabled> คราบหินปูนเหนือเหงือก</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.plaque_under === 'Y' ? 'checked' : '' %> disabled> คราบหินปูนใต้เหงือก</label>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">ข้อต่อขากรรไกร</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="tmj"> ปวดขากรรไกร</label>
-                        <label class="radio-label"><input type="radio" name="tmj"> เสียงคลิกขณะอ้าปาก</label>
-                        <label class="radio-label"><input type="radio" name="tmj"> อ้าปากได้จำกัด</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.jawpian === 'Y' ? 'checked' : '' %> disabled> ปวดขากรรไกร</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.clicking === 'Y' ? 'checked' : '' %> disabled> เสียงคลิกขณะอ้าปาก</label>
+                        <label class="radio-label"><input type="radio" <%= reportData.limit_open === 'Y' ? 'checked' : '' %> disabled> อ้าปากได้จำกัด</label>
                     </div>
                 </div>
             </form>

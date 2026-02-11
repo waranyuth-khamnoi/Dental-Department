@@ -127,6 +127,16 @@ input[type="email"],
     font-family: 'Prompt';
 }
 
+.logout-icon {
+    color: #555; /* สีเทาเข้ม */
+    display: flex;
+    align-items: center;
+}
+
+.logout-icon:hover {
+    color: #000; /* เปลี่ยนเป็นสีดำเมื่อ Hover */
+}
+
 
 /* Responsive */
 @media (max-width: 600px) {

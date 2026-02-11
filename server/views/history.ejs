@@ -61,18 +61,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>07:45</td>
-                        <td>ม่อนจิกกุ๊ก อิอิ</td>
-                        <td>ทพ. กิตติศักดิ์</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>08:00</td>
-                        <td>นากาซาโกะ อุอิ</td>
-                        <td>ทพ. กิตติศักดิ์</td>
-                    </tr>
+                    <% if (historyData && historyData.length > 0) { %>
+                        <% historyData.forEach((item, index) => { %>
+                            <tr data-orderid="<%= item.order_id %>" style="cursor: pointer;">
+                                <td><%= index + 1 %></td>
+                                <td>
+                                    <% if (item.order_datetime) { %>
+                                        <%= new Date(item.order_datetime).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) %> น.
+                                    <% } else { %>
+                                        -
+                                    <% } %>
+                                </td>
+                                <td><%= item.patient_name %> <%= item.patient_lastname %></td>
+                                <td>
+                                    <% if (item.staff_name) { %>
+                                        ทพ. <%= item.staff_name %> <%= item.staff_lastname %>
+                                    <% } else { %>
+                                        ไม่ระบุ
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="4" style="text-align: center;">ไม่พบข้อมูลประวัติการรักษา</td>
+                        </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>

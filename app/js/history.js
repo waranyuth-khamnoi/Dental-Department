@@ -29,24 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 3. (Optional) คลิกที่แถวเพื่อดูรายละเอียด ---
     tableRows.forEach(row => {
         row.style.cursor = 'pointer';
         row.addEventListener('click', () => {
-            const patientName = row.cells[3].innerText;
-            console.log('เลือกระเบียนของ:', patientName);
-            // เพิ่ม Logic การเปิด Modal หรือไปหน้าดูรายละเอียดที่นี่
-        });
-    });
-
-    tableRows.forEach(row => {
-        row.addEventListener('click', () => {
-            // ดึงชื่อคนไข้จาก column ที่ 4 (index 3) มาแสดงตัวอย่าง
-            const patientName = row.cells[3].innerText;
-            console.log(`เลือกคนไข้: ${patientName}`);
-            
-            // หากต้องการให้ทุกแถวคลิกแล้วไปหน้าเดียวกัน:
-            window.location.href = '/patient_info_h';
+            const orderId = row.getAttribute('data-orderid'); // ดึงค่าจาก <tr data-orderid="...">
+            if (orderId) {
+                // ส่ง order_id ไปทาง URL query string
+                window.location.href = `/patient_info_h?order_id=${orderId}`;
+            }
         });
     });
 });

@@ -26,8 +26,8 @@
             </div>
             <nav class="nav-menu-admin">
                 <a href="/history" class="nav-admin-link">ประวัติการรักษา</a>
-                <a href="/patient_info_h" class="nav-admin-link active">รายงานทันตกรรม</a>
-                <a href="/diagnosis_h" class="nav-admin-link">รายการหัตถการ</a>
+                <a href="/patient_info_h?order_id=<%= order_id %>" class="nav-admin-link active">รายงานทันตกรรม</a>
+                <a href="/diagnosis_h?order_id=<%= order_id %>" class="nav-admin-link">รายการหัตถการ</a>
             </nav>
             <div class="header-icons">
                 <span class="icon-user">
@@ -43,56 +43,52 @@
     <main class="container">
         <div class="form-container">
             <div class="tab-menu">
-                <a href="/patient_info_h" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
-                <a href="/oral_exam_h" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
+                <a href="/patient_info_h?order_id=<%= order_id %>" class="tab-btn active" style="text-decoration: none; display: inline-block; text-align: center;">ประวัติผู้ป่วย</a>
+                <a href="/oral_exam_h?order_id=<%= order_id %>" class="tab-btn" style="text-decoration: none; display: inline-block; text-align: center;">ผลตรวจช่องปาก</a>
             </div>
 
             <div class="profile-card">
                 <div class="form-section">
                     <label class="section-label">คำนำหน้า</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="title" checked> นาย</label>
-                        <label class="radio-label"><input type="radio" name="title"> นาง</label>
-                        <label class="radio-label"><input type="radio" name="title"> นางสาว</label>
-                        <label class="radio-label"><input type="radio" name="title"> เด็กหญิง</label>
-                        <label class="radio-label"><input type="radio" name="title"> เด็กชาย</label>
+                        <label class="radio-label"><input type="radio" name="title" <%= patient.title === 'นาย' ? 'checked' : '' %> disabled> นาย</label>
+                        <label class="radio-label"><input type="radio" name="title" <%= patient.title === 'นาง' ? 'checked' : '' %> disabled> นาง</label>
+                        <label class="radio-label"><input type="radio" name="title" <%= patient.title === 'นางสาว' ? 'checked' : '' %> disabled> นางสาว</label>
+                        <label class="radio-label"><input type="radio" name="title" <%= patient.title === 'เด็กหญิง' ? 'checked' : '' %> disabled> เด็กหญิง</label>
+                        <label class="radio-label"><input type="radio" name="title" <%= patient.title === 'เด็กชาย' ? 'checked' : '' %> disabled> เด็กชาย</label>
                     </div>
                 </div>
 
                 <div class="form-grid">
                     <div class="form-group">
                         <label>ชื่อ</label>
-                        <input type="text" class="form-control" value="ม่อนจุ๊กกุ๊ก">
+                        <input type="text" class="form-control" value="<%= patient.patient_name %>" readonly>
                     </div>
                     <div class="form-group">
                         <label>นามสกุล</label>
-                        <input type="text" class="form-control" value="อิอิ">
+                        <input type="text" class="form-control" value="<%= patient.patient_lastname %>" readonly>
                     </div>
                     <div class="form-group">
                         <label>เลขบัตรประชาชน (13 หลัก)</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" value="<%= patient.id_card_p %>" readonly>
                     </div>
                     <div class="form-group">
                         <label>วันเดือนปีเกิด</label>
-                        <div class="dob-wrapper">
-                            <input type="text" class="form-control" value="26">
-                            <input type="text" class="form-control" value="4">
-                            <input type="text" class="form-control" value="1933">
-                        </div>
+                        <input type="text" class="form-control" value="<%= new Date(patient.birthdate).toLocaleDateString('th-TH') %>" readonly>
                     </div>
                     <div class="form-group">
                         <label>เบอร์โทรศัพท์</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" value="<%= patient.phone %>" readonly>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <label class="section-label">สิทธิการรักษา</label>
                     <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="benefit"> บัตรทอง</label>
-                        <label class="radio-label"><input type="radio" name="benefit"> ประกันสังคม</label>
-                        <label class="radio-label"><input type="radio" name="benefit"> ข้าราชการ</label>
-                        <label class="radio-label"><input type="radio" name="benefit" checked> ชำระเงินสด</label>
+                        <label class="radio-label"><input type="radio" name="benefit" <%= patient.treatment === 'บัตรทอง' ? 'checked' : '' %> disabled> บัตรทอง</label>
+                        <label class="radio-label"><input type="radio" name="benefit" <%= patient.treatment === 'ประกันสังคม' ? 'checked' : '' %> disabled> ประกันสังคม</label>
+                        <label class="radio-label"><input type="radio" name="benefit" <%= patient.treatment === 'ข้าราชการ' ? 'checked' : '' %> disabled> ข้าราชการ</label>
+                        <label class="radio-label"><input type="radio" name="benefit" <%= patient.treatment === 'ชำระเงินสด' ? 'checked' : '' %> disabled> ชำระเงินสด</label>
                     </div>
                 </div>
 
@@ -102,18 +98,18 @@
                         <div class="sub-section">
                             <p>โรคประจำตัว</p>
                             <div class="radio-inline">
-                                <label><input type="radio" name="disease" checked> ไม่มี</label>
-                                <label><input type="radio" name="disease"> มี (ระบุ)</label>
-                                <input type="text" class="inline-input">
+                                <label><input type="radio" <%= !patient.c_diseases ? 'checked' : '' %> disabled> ไม่มี</label>
+                                <label><input type="radio" <%= patient.c_diseases ? 'checked' : '' %> disabled> มี (ระบุ)</label>
+                                <input type="text" class="inline-input" value="<%= patient.c_diseases || '' %>" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="health-column">
                         <label class="section-label">ประวัติแพ้ยา</label>
                         <div class="radio-inline">
-                            <label><input type="radio" name="allergy" checked> ไม่มี</label>
-                            <label><input type="radio" name="allergy"> มี (ระบุ)</label>
-                            <input type="text" class="inline-input">
+                            <label><input type="radio" <%= !patient.drug_aller ? 'checked' : '' %> disabled> ไม่มี</label>
+                            <label><input type="radio" <%= patient.drug_aller ? 'checked' : '' %> disabled> มี (ระบุ)</label>
+                            <input type="text" class="inline-input" value="<%= patient.drug_aller || '' %>" readonly>
                         </div>
                     </div>
                 </div>

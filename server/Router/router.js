@@ -383,6 +383,81 @@ router.post('/diagnosis', (req, res) => {
     });
 });
 
+router.get('/history', (req, res) => {
+    // แก้ไข Query ให้ดึงข้อมูลจาก p_h และเข้าร่วมกับ order_request เพื่อเอาเวลา
+    const query = `
+        SELECT 
+            p.order_id, 
+            o.order_datetime, 
+            p.patient_name, 
+            p.patient_lastname, 
+            s.name AS staff_name, 
+            s.lastname AS staff_lastname,
+            p.hn
+        FROM p_h p
+        LEFT JOIN order_request o ON p.order_id = o.order_id
+        LEFT JOIN staff s ON o.staff_id = s.staff_id
+        ORDER BY o.order_datetime DESC`;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("History Query Error:", err.message);
+            return res.status(500).send("Database Error");
+        }
+        // ส่งผลลัพธ์ไปยัง history.ejs
+        res.render('history', { historyData: results });
+    });
+});
+
+// router.js
+
+router.get('/patient_info_h', (req, res) => {
+    const order_id = req.query.order_id;
+
+    if (!order_id) {
+        return res.status(400).send("ไม่พบรหัสใบสั่งการรักษา");
+    }
+
+    // แก้ไข: ดึงข้อมูลจากตาราง p_h โดยใช้ order_id
+    const query = "SELECT * FROM p_h WHERE order_id = ?";
+    
+    db.query(query, [order_id], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database Error");
+        }
+        
+        // ส่งข้อมูลที่ได้ (results[0]) ไปยังไฟล์ EJS
+        res.render('patient_info_h', { 
+            patient: results[0] || {}, 
+            order_id: order_id 
+        });
+    });
+});
+
+router.get('/oral_exam_h', (req, res) => {
+    const order_id = req.query.order_id;
+
+    if (!order_id) {
+        return res.status(400).send("ไม่พบรหัสใบสั่งการรักษา");
+    }
+
+    // ดึงข้อมูลจากตาราง report โดยใช้ order_id
+    const query = "SELECT * FROM report WHERE order_id = ?";
+    
+    db.query(query, [order_id], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database Error");
+        }
+        
+        // ส่งข้อมูล reportData ไปที่หน้า oral_exam_h.ejs
+        res.render('oral_exam_h', { 
+            reportData: results[0] || {}, 
+            order_id: order_id 
+        });
+    });
+});
 
 router.get('/about', (req, res) => {res.render('about')});
 router.get('/appointment', (req, res) => {res.render('appointment')});
