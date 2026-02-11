@@ -1,4 +1,3 @@
-* จัดการเมนู Navigation แบบแคปซูลตามรูป */
 .nav-menu-admin {
     display: flex;
     gap: 10px;
@@ -15,7 +14,7 @@
 }
 
 .nav-admin-link.active {
-    background-color: #f8cf4f; /* สีเหลืองตามตัวแปร primary-yellow */
+    background-color: #f8cf4f;
     border-color: #f8cf4f;
 }
 
@@ -27,8 +26,8 @@
 
 /* Diagnosis Content */
 .diagnosis-container {
-    margin: 20px auto; /* ลด margin บน-ล่าง */
-    padding: 0 15px;   /* เพิ่ม padding ซ้าย-ขวาป้องกันขอบจอ */
+    margin: 20px auto;
+    padding: 0 15px;
     max-width: 950px;
 }
 
@@ -63,7 +62,7 @@
 
 .options-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* แบ่งเป็น 5 คอลัมน์ตามรูป */
+    grid-template-columns: repeat(5, 1fr);
     gap: 15px;
     align-items: center;
 }
@@ -122,35 +121,33 @@
 /* Responsive */
 @media (max-width: 768px) {
     .diagnosis-card {
-        padding: 20px; /* ลดจาก 50px เหลือ 20px */
-        border-radius: 0 0 15px 15px; /* ปรับมุมให้รับกับ Header */
+        padding: 20px;
+        border-radius: 0 0 15px 15px;
     }
 
     .options-grid {
-        /* ปรับจาก 5 คอลัมน์ เป็น 2 หรือ 1 ตามความเหมาะสม */
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
         gap: 12px;
     }
 
     .diagnosis-header {
-        width: 100%; /* ให้หัวข้อกว้างเต็มหน้าจอ */
+        width: 100%;
         text-align: center;
         box-sizing: border-box;
     }
 
     .diag-actions {
-        flex-direction: column-reverse; /* ปุ่มกดยืนยันอยู่บน ยกเลิกอยู่ล่าง */
+        flex-direction: column-reverse;
         gap: 10px;
     }
 
     .btn-dark {
-        width: 100%; /* ปุ่มขยายเต็มความกว้าง */
+        width: 100%;
         padding: 12px;
     }
 }
 
 @media (max-width: 768px) {
-    /* ทำให้เมนูแคปซูลเลื่อนได้ ไม่เบียดกัน */
     .nav-menu-admin {
         overflow-x: auto;
         white-space: nowrap;
@@ -165,7 +162,6 @@
         font-size: 14px;
     }
 
-    /* ปรับ Header หลักให้โลโก้อยู่กลาง */
     .header-container {
         flex-direction: column;
         gap: 15px;

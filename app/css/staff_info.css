@@ -18,7 +18,6 @@
     margin: 0 auto;
 }
 
-/* แถบหัวข้อสีส้ม */
 .form-header {
     background-color: #f39c12;
     color: #000;
@@ -33,7 +32,6 @@
     z-index: 2;
 }
 
-/* การ์ดฟอร์มสีขาว */
 .form-card {
     background: #fff;
     border: 1px solid #ddd;
@@ -70,7 +68,6 @@ input[type="text"], input[type="email"] {
     outline: none;
 }
 
-/* ขนาด Input พิเศษ */
 .input-small { width: 120px; }
 .input-full { width: 100%; }
 
@@ -89,7 +86,6 @@ input[type="text"], input[type="email"] {
     cursor: pointer;
 }
 
-/* วันเกิด */
 .date-group {
     display: flex;
     gap: 10px;

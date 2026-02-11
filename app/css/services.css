@@ -1,19 +1,18 @@
-/* การจัดหน้า Services ตาม Mockup */
 .services-section {
     padding: 60px 0;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 คอลัมน์ */
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
 .service-card {
-    background-color: #c5ad7d; /* สีน้ำตาลทองตาม Mockup */
-    border-radius: 35px; /* มุมโค้งมนมากตามรูป */
+    background-color: #c5ad7d;
+    border-radius: 35px;
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
@@ -31,11 +30,11 @@
 
 .service-card:hover {
     transform: translateY(-5px);
-    background-color: #b39a6a; /* สีเข้มขึ้นเล็กน้อยเมื่อ Hover */
+    background-color: #b39a6a;
 }
 
 .service-icon-bg {
-    background-color: #ffffff; /* พื้นหลังวงกลมสีขาวสำหรับ Icon */
+    background-color: #ffffff;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -47,9 +46,9 @@
 }
 
 .service-icon-bg img {
-    width: 55px; /* ปรับขนาดให้พอดีกับวงกลม 100px */
+    width: 55px;
     height: 55px;
-    object-fit: contain; /* ป้องกันรูปบิดเบี้ยว */
+    object-fit: contain; 
 }
 
 .service-card h3 {
@@ -59,15 +58,14 @@
     margin: 0;
 }
 
-/* Responsive สำหรับมือถือ */
 @media (max-width: 900px) {
     .services-grid {
-        grid-template-columns: repeat(2, 1fr); /* แสดง 2 คอลัมน์ในแท็บเล็ต */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
     .services-grid {
-        grid-template-columns: 1fr; /* แสดง 1 คอลัมน์ในมือถือ */
+        grid-template-columns: 1fr;
     }
 }

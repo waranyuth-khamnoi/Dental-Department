@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- ส่วนที่ 1: ระบบ Logout (ทำให้กดได้แน่นอน) ---
     const logoutBtn = document.querySelector('.icon-logout');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // ป้องกันการทำงานซ้อนทับ
+            e.preventDefault();
             if (confirm('ยืนยันการออกจากระบบ?')) {
                 window.location.href = '/staff_login';
             }
         });
     }
 
-    // --- ส่วนที่ 2: ดึงข้อมูลหัตถการมาติ๊ก (Checked) ---
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get('order_id');
 
@@ -31,11 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     Object.keys(mapping).forEach(name => {
                         const val = mapping[name];
                         if (val && val !== 'N') {
-                            // หา radio ที่ตรงทั้งชื่อกลุ่ม (name) และค่า (value)
                             const radio = document.querySelector(`input[name="${name}"][value="${val}"]`);
                             if (radio) {
                                 radio.checked = true;
-                                radio.dataset.wasChecked = "true"; // เก็บสถานะไว้
+                                radio.dataset.wasChecked = "true";
                             }
                         }
                     });
@@ -43,7 +40,4 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => console.error("Error loading data:", err));
     }
-
-    // --- ส่วนที่ 3: ระบบ Toggle Radio (กดแล้วเลือก/ยกเลิกได้) ---
-
 });

@@ -1,9 +1,8 @@
-// 1. ตัวแปรสำหรับล็อคการส่งข้อมูล (ป้องกันการกดรัว หรือ Double Click)
 let isCreatingOrder = false;
 
 /**
  * ฟังก์ชันสำหรับสร้าง Order ใหม่
- * @param {string} hn - รหัส HN ของคนไข้
+ * @param {string} hn
  */
 async function createOrder(hn) {
     if (isCreatingOrder) return;
@@ -17,7 +16,7 @@ async function createOrder(hn) {
         return;
     }
 
-    isCreatingOrder = true; // ล็อกปุ่ม
+    isCreatingOrder = true;
 
     try {
         const response = await fetch('/create-order', {
@@ -29,7 +28,6 @@ async function createOrder(hn) {
         const result = await response.json();
 
         if (result.success) {
-            // ไปหน้าถัดไปพร้อมส่ง order_id ไปด้วย
             window.location.href = `/patient_info?order_id=${result.order_id}`;
         } else {
             alert("เกิดข้อผิดพลาด: " + result.message);
@@ -38,16 +36,15 @@ async function createOrder(hn) {
         console.error("Error:", err);
         alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้");
     } finally {
-        isCreatingOrder = false; // ปลดล็อกปุ่มเสมอ ไม่ว่าจะสำเร็จหรือพลาด
+        isCreatingOrder = false;
     }
 }
-// 2. ส่วนจัดการ UI (ทำงานเมื่อโหลดหน้า HTML เสร็จ)
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('.search-input');
     const tableRows = document.querySelectorAll('.data-table tbody tr');
     const logoutBtn = document.querySelector('.icon-logout');
 
-    // --- ระบบค้นหา (Search) ---
     if (searchInput) {
         searchInput.addEventListener('keyup', (e) => {
             const searchTerm = e.target.value.toLowerCase();
@@ -58,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- ระบบ Logout ---
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
@@ -66,10 +62,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    /* หมายเหตุสำคัญ: 
-       ห้ามใส่โค้ดประเภท tableRows.forEach(row => row.addEventListener('click', ...)) ในนี้ 
-       เพราะเราใช้ onclick="createOrder(...)" โดยตรงในไฟล์ registration.ejs แล้ว 
-       การใส่ซ้ำจะทำให้ฟังก์ชันทำงาน 2 รอบ (เบิ้ล 2 Order) ครับ
-    */
 });

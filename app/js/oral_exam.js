@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const examForm = document.getElementById('oral_exam');
     const logoutBtn = document.querySelector('.icon-logout');
     
-    // ส่วนที่ 1: ระบบจัดการ Checkbox (ถ้าติ๊ก "ปกติ" ให้เอาอันอื่นออก)
     const normalStatusCheckbox = document.getElementById('normalStatus');
     const toothStatusCheckboxes = document.querySelectorAll('input[name="t_decay"], input[name="t_worn"], input[name="t_broken"], input[name="t_miss"], input[name="t_fill"], input[name="t_wisdom"], input[name="t_misali"]');
 
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ส่วนที่ 2: ระบบ Logout (คงไว้ตามต้องการ)
     if (logoutBtn) {
         logoutBtn.style.cursor = 'pointer';
         logoutBtn.addEventListener('click', () => {
@@ -30,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ส่วนที่ 3: ระบบการส่งฟอร์มเพื่อบันทึกข้อมูล
     if (examForm) {
         examForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -46,14 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(examForm);
             
-            // เตรียม Data ส่งไป Server (ดึงค่าจาก Radio และ Number)
             const data = {
                 order_id: orderId,
                 t_unfill_cavities: formData.get('t_unfill_cavities') || 0,
-                // สำหรับ Radio ถ้าไม่ได้เลือกจะเป็น null
             };
 
-            // ดึงค่าจาก Checkbox ทั้งหมด (ถ้าติ๊กเป็น 'Y' ถ้าไม่ติ๊กเป็น 'N')
             const checkFields = [
                 't_decay', 't_worn', 't_broken', 't_miss', 't_fill', 
                 't_wisdom', 't_misali', 't_normal', 'normal_occ', 
@@ -91,11 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('click', async (e) => {
-    // หาปุ่มโดยไม่สนว่าจะเป็นตัวอักษรข้างใน หรือขอบปุ่ม
     const target = e.target.closest('.nav-admin-link, .btn-cancel-order');
 
     if (target) {
-        // เช็คว่าลิงก์นั้นส่งไปหน้า registration หรือไม่ (ใช้ .pathname จะแม่นยำกว่า)
         const isRegis = target.pathname === '/registration' || target.getAttribute('href') === '/registration';
         
         if (isRegis) {
@@ -103,7 +95,7 @@ document.addEventListener('click', async (e) => {
             const orderId = urlParams.get('order_id');
 
             if (orderId) {
-                e.preventDefault(); // หยุดการเปลี่ยนหน้า
+                e.preventDefault();
 
                 if (confirm('คุณต้องการยกเลิกคิวงานนี้และกลับไปหน้าทะเบียนใช่หรือไม่?')) {
                     try {

@@ -6,14 +6,14 @@
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 40px;
-    color: var(--text-dark); /* ใช้ตัวแปรจาก main.css ได้ */
+    color: var(--text-dark);
     border-left: 5px solid var(--primary-yellow-dark);
     padding-left: 15px;
 }
 
 .staff-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ปรับตามขนาดจออัตโนมัติ */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 50px;
     margin-bottom: 80px;
 }
@@ -40,7 +40,7 @@
 }
 
 .staff-card:hover .staff-img {
-    transform: translateY(-10px); /* ขยับขึ้นเล็กน้อยเมื่อ Hover */
+    transform: translateY(-10px);
 }
 
 .staff-info h3 {
@@ -55,10 +55,9 @@
     color: #555;
     font-weight: 300;
     line-height: 1.5;
-    max-width: 250px; /* จำกัดความกว้างตัวอักษรให้อ่านง่าย */
+    max-width: 250px;
 }
 
-/* ปรับแต่งสำหรับมือถือ */
 @media (max-width: 768px) {
     .staff-grid {
         grid-template-columns: 1fr;

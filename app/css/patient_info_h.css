@@ -1,14 +1,12 @@
-/* จัดการเมนู Navigation แบบแคปซูลตามรูป */
 .nav-menu-admin {
     display: flex;
     gap: 10px;
-    overflow-x: auto; /* เปิดการเลื่อนแนวนอน */
-    white-space: nowrap; /* ไม่ให้ข้อความขึ้นบรรทัดใหม่ */
+    overflow-x: auto;
+    white-space: nowrap;
     padding-bottom: 5px;
     -webkit-overflow-scrolling: touch;
 }
 
-/* ซ่อน Scrollbar ของ Nav เพื่อความสวยงาม (Optional) */
 .nav-menu-admin::-webkit-scrollbar {
     display: none;
 }
@@ -24,7 +22,7 @@
 }
 
 .nav-admin-link.active {
-    background-color: #f8cf4f; /* สีเหลืองตามตัวแปร primary-yellow */
+    background-color: #f8cf4f;
     border-color: #f8cf4f;
 }
 
@@ -42,12 +40,11 @@
     margin-right: auto;
 }
 
-/* ปรับ Tab Menu ให้เลื่อนได้ */
 .tab-menu {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    margin-left: 0; /* ปรับให้ชิดซ้ายบนมือถือ */
+    margin-left: 0;
     border-bottom: 1px solid #ccc;
 }
 
@@ -64,7 +61,7 @@
 }
 
 .tab-btn.active {
-    background-color: #ff9f00; /* ส้มตามรูป 7 */
+    background-color: #ff9f00;
     color: black;
     border-color: #ff9f00;
 }
@@ -140,7 +137,6 @@
     margin-top: 20px;
 }
 
-/* Footer Buttons (สำหรับรูปที่ 8) */
 .form-footer {
     display: flex;
     justify-content: flex-end;
@@ -162,36 +158,31 @@
     border-radius: 8px;
 }
 
-/* กำหนดสีให้ปุ่ม Tab ทุกสถานะ */
 .tab-btn, 
 .tab-btn:visited, 
 .tab-btn:hover, 
 .tab-btn:active {
-    text-decoration: none; /* เอาเส้นใต้ตัวหนังสือออก */
-    color: inherit;        /* หรือระบุสีที่ต้องการ เช่น #000000 หรือ #FFFFFF */
+    text-decoration: none;
+    color: inherit;
 }
 
-/* กรณีต้องการแยกสีสำหรับปุ่มที่ Active (หน้าปัจจุบัน) */
 .tab-btn.active {
-    color: #000000 !important; /* เปลี่ยนเป็นสีดำหรือสีที่ต้องการเมื่อเลือกหน้านี้ */
+    color: #000000 !important;
 }
 
 @media (max-width: 768px) {
-    /* ปรับระยะห่างของ Profile Card */
     .profile-card {
-        padding: 20px; /* ลด padding ลงเพื่อให้มีพื้นที่แสดงผลมากขึ้น */
+        padding: 20px; 
     }
 
-    /* เปลี่ยนฟอร์มจาก 2 คอลัมน์ เป็นบรรทัดเดียว */
     .form-grid, 
     .health-info-grid {
         grid-template-columns: 1fr; 
         gap: 15px;
     }
 
-    /* ปรับส่วนวันเกิด (DOB) ให้ยืดหยุ่น */
     .dob-wrapper {
-        flex-wrap: wrap; /* ให้ปีเลื่อนลงมาข้างล่างได้ถ้าที่ว่างไม่พอ */
+        flex-wrap: wrap;
     }
     
     .dob-wrapper .form-control {
@@ -199,24 +190,21 @@
         min-width: 60px;
     }
 
-    /* ปรับส่วน Radio Group ให้ห่างกันพอดี */
     .radio-group {
         gap: 10px 15px;
     }
 
-    /* ปรับช่อง Input ในประวัติแพ้ยา/โรคประจำตัว */
     .radio-inline {
         flex-wrap: wrap;
     }
     
     .inline-input {
-        width: 100%; /* ให้ช่องระบุชื่อยา/โรค ยาวเต็มบรรทัดในมือถือ */
+        width: 100%;
         margin-top: 5px;
     }
 }
 
 @media (max-width: 768px) {
-    /* ทำให้เมนูแคปซูลเลื่อนได้ ไม่เบียดกัน */
     .nav-menu-admin {
         overflow-x: auto;
         white-space: nowrap;
@@ -231,7 +219,6 @@
         font-size: 14px;
     }
 
-    /* ปรับ Header หลักให้โลโก้อยู่กลาง */
     .header-container {
         flex-direction: column;
         gap: 15px;

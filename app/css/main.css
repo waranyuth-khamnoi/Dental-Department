@@ -37,7 +37,7 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px; /* เพิ่มช่องว่างซ้ายขวา */
+    padding: 0 15px;
     box-sizing: border-box;
 }
 
@@ -97,7 +97,6 @@ body {
 
 .nav-link.active {
     background-color: #fceea6;
-    /* Light yellow bg for active Home */
     padding: 5px 15px;
     border-radius: 20px;
     font-weight: 500;

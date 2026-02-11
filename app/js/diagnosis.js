@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.querySelector('.icon-logout');
     const urlParams = new URLSearchParams(window.location.search);
 
-    // 1. ระบบจัดการการเลือก Radio Buttons (คลิกซ้ำที่เดิมเพื่อยกเลิกการเลือก)
     const allRadios = document.querySelectorAll('input[type="radio"]');
     allRadios.forEach(radio => {
         radio.addEventListener('click', function() {
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.checked = false;
                 this.wasChecked = false;
             } else {
-                // ล้างค่า wasChecked ของตัวอื่นในกลุ่มเดียวกัน (name เดียวกัน)
                 const groupName = this.getAttribute('name');
                 document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => r.wasChecked = false);
                 this.wasChecked = true;
@@ -20,19 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. ระบบบันทึกข้อมูล (ย้าย Logic มาไว้ในนี้เพื่อแก้ ReferenceError: formData is not defined)
     if (diagnosisForm) {
         diagnosisForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // ป้องกันหน้าเว็บรีโหลด
+            e.preventDefault();
 
-            // สร้าง formData จากสถานะล่าสุดของฟอร์ม ณ ตอนที่กดปุ่ม
             const formData = new FormData(diagnosisForm);
             
-            // รวบรวมข้อมูลเตรียมส่งไปที่ Server
             const data = {
                 order_id: urlParams.get('order_id'),
                 hn: urlParams.get('hn'),
-                // ดึงค่าจาก Radio p1-p6 (ถ้าไม่ได้เลือกจะส่ง 'N' ไปแทน)
                 prevent: formData.get('p1') || 'N',
                 re_dentistry: formData.get('p2') || 'N',
                 oral_sur: formData.get('p3') || 'N',
@@ -41,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 gp_disease: formData.get('p6') || 'N'
             };
 
-            // ตรวจสอบว่ามีการเลือกอย่างน้อย 1 อย่างหรือไม่
             const hasSelection = Object.values(data).some(val => val !== 'N' && val !== null && val !== data.order_id && val !== data.hn);
             if (!hasSelection) {
                 alert('กรุณาเลือกรายการหัตถการอย่างน้อย 1 รายการ');
@@ -68,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. ระบบ Logout
     if (logoutBtn) {
         logoutBtn.style.cursor = 'pointer';
         logoutBtn.addEventListener('click', () => {
@@ -79,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// 4. ระบบยกเลิก (ปุ่มกากบาทหรือปุ่มยกเลิก) และลบคิวงาน
 document.addEventListener('click', async (e) => {
     const target = e.target.closest('.nav-admin-link, .btn-cancel-order');
     if (target) {

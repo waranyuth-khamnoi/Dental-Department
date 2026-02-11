@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. จัดการ Sticky Header ---
     const header = document.querySelector('.header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -10,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 2. Smooth Scroll สำหรับลิงก์ภายใน ---
-    // (ถ้ามีปุ่มที่กดแล้วเลื่อนลงไปดูข้อมูลด้านล่าง)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -21,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. Animation เบื้องต้นเมื่อโหลดหน้าเว็บ (Reveal Effect) ---
     const heroContent = document.querySelector('.hero-content');
     const heroImage = document.querySelector('.hero-image');
 
@@ -41,9 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             heroImage.style.transform = 'translateX(0)';
         }, 200);
     }
-
-    // --- 4. จัดการปุ่มโทร (Mobile Optimization) ---
-    // ถ้าดูผ่านมือถือ เมื่อกดปุ่ม 'โทรติดต่อ' จะเด้งไปหน้าโทรศัพท์ทันที
+    
     const phoneBtn = document.querySelector('.btn-blue');
     if (phoneBtn && /Mobi|Android/i.test(navigator.userAgent)) {
         phoneBtn.href = 'tel:054409500';

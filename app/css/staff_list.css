@@ -1,21 +1,19 @@
-/* การจัดการ Layout หลัก */
 .content-wrapper {
-    padding-top: 60px; /* เพิ่มระยะห่างด้านบนให้ดูโปร่ง */
+    padding-top: 60px;
     padding-bottom: 60px;
 }
 
 .top-bar {
     display: flex;
-    justify-content: flex-end; /* เลื่อนส่วนค้นหาไปทางขวา */
+    justify-content: flex-end; 
     align-items: center;
     margin-bottom: 25px;
 }
 
-/* ส่วนค้นหา */
 .search-container {
     display: flex;
     align-items: center;
-    gap: 25px; /* ระยะห่างระหว่างช่องค้นหากับข้อความแก้ไขข้อมูล */
+    gap: 25px; 
 }
 
 .search-box {
@@ -54,18 +52,17 @@
     font-size: 16px;
     cursor: pointer;
     font-weight: 400;
-    text-decoration: none; /* เพิ่มบรรทัดนี้เพื่อลบเส้นใต้ของลิงก์ออก */
+    text-decoration: none; 
     display: inline-block;
 }
 
 .edit-link:hover {
-    color: var(--btn-blue); /* เพิ่มสีเวลาเอาเมาส์ไปชี้เพื่อให้ดูคลิกได้ */
+    color: var(--btn-blue); 
 }
 
-/* ส่วนตาราง */
 .table-card {
     background: #fff;
-    border: 1px solid #dcdcdc; /* ปรับสีขอบให้ใกล้เคียง Mockup */
+    border: 1px solid #dcdcdc;
     border-radius: 12px;
     overflow: hidden;
 }
@@ -81,14 +78,14 @@
     color: #000;
     border-bottom: 1px solid #eee;
     font-size: 15px;
-    text-align: center; /* จัดกึ่งกลางตามรูป */
+    text-align: center;
 }
 
 .staff-table td {
     padding: 22px 20px;
     color: #000;
     font-size: 15px;
-    text-align: center; /* จัดกึ่งกลางตามรูป */
+    text-align: center; 
 }
 
 .staff-table tbody tr:not(:last-child) {
@@ -100,7 +97,7 @@
 }
 
 .staff-table tbody tr:hover {
-    background-color: #f8f9fa; /* สีเทาจางๆ เวลาเอาเมาส์ชี้ */
+    background-color: #f8f9fa; 
     cursor: pointer;
 }
 
