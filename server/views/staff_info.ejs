@@ -24,10 +24,23 @@
                     <h2>แผนกทันตกรรม</h2>
                 </div>
             </div>
-            <div class="user-actions">
-                <button class="icon-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
-                <button class="icon-btn"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></button>
+           <div class="user-actions">
+            <div class="user-profile-display" style="text-align: right; margin-right: 15px; display: inline-block; vertical-align: middle; line-height: 1.2;">
+                <div style="font-weight: 600; font-size: 0.9em; color: #333;">
+                    <%= user ? user.name : 'Staff' %>
+                </div>
+                <div style="font-size: 0.75em; color: #666;">
+                    <%= user && user.role === '0' ? 'Admin' : 'ทันตแพทย์' %>
+                </div>
             </div>
+
+            <button class="icon-btn" title="โปรไฟล์">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </button>
+            <button class="icon-btn" title="ออกจากระบบ">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button>
+        </div>
         </div>
     </header>
 
@@ -73,17 +86,17 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>ชื่อ</label>
-                            <input type="text" value="<%= staff.name %>">
+                            <input type="text" value="<%= staff.name %>"readonly>
                         </div>
                         <div class="form-group">
                             <label>นามสกุล</label>
-                            <input type="text" value="<%= staff.lastname %>">
+                            <input type="text" value="<%= staff.lastname %>"readonly>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>เลขบัตรประชาชน (13 หลัก)</label>
-                        <input type="text" value="<%= staff.id_card %>">
+                        <input type="text" value="<%= staff.id_card %>"readonly>
                     </div>
                     <div class="form-group">
                         <label>วันเดือนปีเกิด</label>
@@ -94,26 +107,26 @@
                                 let month = d.getMonth() + 1;
                                 let year = d.getFullYear();
                             %>
-                            <input type="text" value="<%= day %>" class="input-date">
-                            <input type="text" value="<%= month %>" class="input-date">
-                            <input type="text" value="<%= year %>" class="input-year">
+                            <input type="text" value="<%= day %>" class="input-date"readonly>
+                            <input type="text" value="<%= month %>" class="input-date"readonly>
+                            <input type="text" value="<%= year %>" class="input-year"readonly>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label>เบอร์โทรศัพท์</label>
-                            <input type="text" value="<%= staff.phone %>">
+                            <input type="text" value="<%= staff.phone %>"readonly>
                         </div>
                         <div class="form-group">
                             <label>E-mail</label>
-                            <input type="email" value="<%= staff.email %>">
+                            <input type="email" value="<%= staff.email %>"readonly>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>ตำแหน่ง</label>
-                        <input type="text" value="<%= staff.department %>" class="input-full">
+                        <input type="text" value="<%= staff.department %>" class="input-full"readonly>
                     </div>
                 </form>
             </div>

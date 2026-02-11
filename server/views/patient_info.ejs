@@ -71,23 +71,23 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>ชื่อ</label>
-                        <input type="text" class="form-control" value="<%= patient.patient_name %>">
+                        <input type="text" class="form-control" value="<%= patient.patient_name %>"readonly>
                     </div>
                     <div class="form-group">
                         <label>นามสกุล</label>
-                        <input type="text" class="form-control" value="<%= patient.patient_lastname %>">
+                        <input type="text" class="form-control" value="<%= patient.patient_lastname %>"readonly>
                     </div>
                     <div class="form-group">
                         <label>เลขบัตรประชาชน (13 หลัก)</label>
-                        <input type="text" class="form-control" value="<%= patient.id_card_p %>">
+                        <input type="text" class="form-control" value="<%= patient.id_card_p %>"readonly>
                     </div>
                     <div class="form-group">
                         <label>วัน/เดือน/ปี เกิด</label>
-                        <input type="date" class="form-control" value="<%= patient.birthdate ? new Date(patient.birthdate).toISOString().split('T')[0] : '' %>">
+                        <input type="date" class="form-control" value="<%= patient.birthdate ? new Date(patient.birthdate).toISOString().split('T')[0] : '' %>"readonly>
                     </div>
                     <div class="form-group">
                         <label>เบอร์โทรศัพท์</label>
-                        <input type="text" class="form-control" value="<%= patient.phone %>">
+                        <input type="text" class="form-control" value="<%= patient.phone %>"readonly>
                     </div>
                 </div>
 
