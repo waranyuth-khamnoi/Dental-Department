@@ -79,6 +79,7 @@
                 <tbody>
                     <% if (staffs && staffs.length > 0) { %>
                         <% staffs.forEach(staff => { %>
+                            <% if (staff.role != '0') { %>
                             <tr>
                                 <td><%= staff.staff_id %></td>
                                 <td><%= staff.title %><%= staff.name %></td>
@@ -101,6 +102,7 @@
                                     </button>
                                 </td>
                             </tr>
+                            <% } %> <% /* ปิดเงื่อนไข if */ %>
                         <% }); %>
                     <% } else { %>
                         <tr>

@@ -34,20 +34,16 @@ router.get('/registration', (req, res) => {
 router.post('/create-order', (req, res) => {
     const { hn, staff_id } = req.body;
     
-    // 1. ลองเช็คใน Terminal ว่าค่าส่งมาถึง Server ไหม
-    console.log("Data received:", { hn, staff_id });
+    // *** เปลี่ยน 'hn_order' เป็นชื่อคอลัมน์จริงๆ ที่มีอยู่ในตารางของคุณ ***
+    // สมมติว่าใน DB คุณชื่อ hn เฉยๆ ก็แก้ตามนี้:
+    const query = "INSERT INTO order_request (hn, staff_id, order_datetime) VALUES (?, ?, NOW())";
 
-    // 2. ตรวจสอบชื่อคอลัมน์: ในตารางของคุณชื่อ order_date หรือ order_datetime?
-    // ถ้าใน DB ชื่อ order_datetime ให้ใช้ชื่อนั้น
-    const sql = "INSERT INTO order_request (hn, staff_id, order_datetime) VALUES (?, ?, NOW())";
-    
-    db.query(sql, [hn, staff_id], (err, result) => {
+    db.query(query, [hn, staff_id], (err, result) => {
         if (err) {
-            // บรรทัดนี้จะบอก Error จริงๆ ในหน้าจอ CMD/Terminal ที่คุณรัน Node
-            console.error("SQL Error รายละเอียด:", err.message); 
+            console.error("SQL Error:", err);
             return res.status(500).json({ 
                 success: false, 
-                message: "Database Error: " + err.message 
+                message: "DB Error: " + err.message 
             });
         }
         res.json({ success: true, order_id: result.insertId });
@@ -72,32 +68,32 @@ router.delete('/delete-order/:order_id', (req, res) => {
 });
 
 router.get('/patient_info', (req, res) => {
-  const hn = req.query.hn;
-  const order_id = req.query.order_id; // รับค่า order_id จาก URL
-
-  if (!hn) {
-    return res.status(400).send("กรุณาระบุ HN ของคนไข้");
-  }
-
-  const query = "SELECT * FROM patient WHERE hn = ?";
-  db.query(query, [hn], (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Database Error");
+    if (!req.session.user) {
+        return res.redirect('/staff_login');
     }
 
-    if (results.length === 0) {
-      return res.status(404).send("ไม่พบข้อมูลคนไข้");
-    }
+    const order_id = req.query.order_id;
+    
+    // เปลี่ยน d_order เป็น order_request ในการ JOIN ด้วย
+    const query = `
+        SELECT * FROM patient 
+        JOIN order_request ON patient.hn = order_request.hn
+        WHERE order_request.order_id = ?
+    `;
 
-    // ส่งทั้งข้อมูลคนไข้ (patient) และ order_id ไปที่ EJS
-    res.render('patient_info', { 
-      patient: results[0], 
-      order_id: order_id 
+    db.query(query, [order_id], (err, results) => {
+        if (err) {
+            console.error("DB Error:", err);
+            return res.status(500).send("Database Error: " + err.message);
+        }
+
+        res.render('patient_info', { 
+            patient: results[0] || {}, 
+            order_id: order_id,
+            user: req.session.user 
+        });
     });
-  });
 });
-
 router.get('/oral_exam', (req, res) => {
   const hn = req.query.hn;
   const order_id = req.query.order_id;
@@ -215,6 +211,24 @@ router.post('/api/login', (req, res) => {
     });
 });
 
+router.get('/staff_info', (req, res) => {
+    // 1. ตรวจสอบการ Login
+    if (!req.session.user) {
+        return res.redirect('/staff_login');
+    }
+
+    const staffId = req.query.id;
+    const query = "SELECT * FROM staff WHERE staff_id = ?";
+    
+    db.query(query, [staffId], (err, results) => {
+        if (err) return res.status(500).send("Database Error");
+        
+        res.render('staff_info', { 
+            staff: results[0] || {}, 
+            user: req.session.user // <--- ส่งข้อมูลผู้ใช้ที่ Login อยู่ไปแสดงผลที่ Header
+        });
+    });
+});
 
 router.get('/staff_list', (req, res) => {
     // เช็ค Login
@@ -233,27 +247,7 @@ router.get('/staff_list', (req, res) => {
     });
 });
 
-router.get('/patient_info', (req, res) => {
-    // 1. ตรวจสอบว่ามีข้อมูลใน Session จริงไหม
-    if (!req.session.user) {
-        return res.redirect('/staff_login');
-    }
 
-    const order_id = req.query.order_id;
-    const query = "SELECT * FROM patient JOIN d_order ON patient.hn = d_order.hn_order WHERE d_order.order_id = ?";
-
-    db.query(query, [order_id], (err, results) => {
-        if (err) return res.status(500).send(err);
-
-        // --- จุดที่ต้องเช็คเป็นพิเศษ ---
-        res.render('patient_info', { 
-            patient: results[0] || {}, 
-            order_id: order_id,
-            user: req.session.user  // <--- ต้องอยู่ภายใน { } นี้เท่านั้น
-        });
-        // ---------------------------
-    });
-});
 
 router.get('/staff_manage', (req, res) => {
     // 1. เช็ค Login
@@ -261,16 +255,30 @@ router.get('/staff_manage', (req, res) => {
         return res.redirect('/staff_login');
     }
 
-    const query = "SELECT * FROM staff";
+    // 2. แก้ไข SQL Query ใหม่:
+    // - JOIN ตาราง staff กับ user_account เข้าด้วยกันโดยใช้ staff_id
+    // - เพิ่มเงื่อนไข WHERE user_account.role != '0' เพื่อกรองบทบาท 0 ออก
+    const query = `
+        SELECT staff.*, user_account.role 
+        FROM staff 
+        JOIN user_account ON staff.staff_id = user_account.staff_id 
+        WHERE user_account.role != '0'
+    `;
+
     db.query(query, (err, results) => {
-        if (err) return res.status(500).send("Database Error");
+        if (err) {
+            console.error("Database Error:", err);
+            return res.status(500).send("Database Error");
+        }
         
+        // 3. ส่งข้อมูลที่กรองเสร็จแล้วไปแสดงผล
         res.render('staff_manage', { 
             staffs: results, 
-            user: req.session.user // <--- ส่งข้อมูลผู้ใช้ปัจจุบันไปที่หน้าเว็บ
+            user: req.session.user 
         });
     });
 });
+
 router.use(express.urlencoded({ extended: true }));
 
 router.post('/staff_add', (req, res) => {
