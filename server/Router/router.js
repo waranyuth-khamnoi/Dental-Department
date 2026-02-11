@@ -239,15 +239,23 @@ router.get('/staff_info', (req, res) => {
 });
 
 router.get('/staff_manage', (req, res) => {
-  const query = "SELECT * FROM staff";
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("Database Error");
-    }
-    // ส่งข้อมูล staffs ที่ได้จาก database ไปยังไฟล์ ejs
-    res.render('staff_manage', { staffs: results });
-  });
+    // ดึงข้อมูลพนักงาน และ JOIN เพื่อเช็ค role
+    const query = `
+        SELECT s.*, u.role 
+        FROM staff s
+        JOIN user_account u ON s.staff_id = u.staff_id
+        WHERE u.role != '0'
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database Error");
+        }
+        
+        // แก้ชื่อตัวแปรตรงนี้ให้เป็น staffs เพื่อให้ตรงกับหน้า EJS
+        res.render('staff_manage', { staffs: results }); 
+    });
 });
 
 router.use(express.urlencoded({ extended: true }));
